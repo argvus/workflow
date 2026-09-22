@@ -1,6 +1,10 @@
+# ARGVUS
+
+ARGVUS is a modular Hyprland and Wayland desktop environment for Arch Linux. It is an integrated collection of packages rather than one monolithic application: the session, compositor, shell surfaces, settings applications, providers and visual assets work together through shared state and explicit runtime contracts.
+
 # ARGVUS Workspace
 
-This workspace contains the source repositories of the ARGVUS desktop shell,
+This workspace contains the source repositories of the ARGVUS desktop,
 its supporting packages, and the source code of the ARGVUS website/documentation.
 
 ## Workspace root
