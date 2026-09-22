@@ -18,7 +18,7 @@ collect:
 	@sh "$(TOOLS_MAIN)" collect
 
 install:
-	@sh "$(TOOLS_MAIN)" install
+	@sh "$(TOOLS_MAIN)" install $(filter-out $@,$(MAKECMDGOALS))
 
 push%:
 	@sh "$(TOOLS_MAIN)" push "$*"
@@ -36,9 +36,9 @@ claude:
 	@sh "$(TOOLS_MAIN)" claude
 
 # GNU Make treats positional modes and project names as independent goals.
-# Consume only those supplied alongside clone or build.
-ifneq ($(filter clone build,$(MAKECMDGOALS)),)
-.PHONY: $(filter-out clone build,$(MAKECMDGOALS))
-$(filter-out clone build,$(MAKECMDGOALS)):
+# Consume only those supplied alongside clone, build, or install.
+ifneq ($(filter clone build install,$(MAKECMDGOALS)),)
+.PHONY: $(filter-out clone build install,$(MAKECMDGOALS))
+$(filter-out clone build install,$(MAKECMDGOALS)):
 	@:
 endif

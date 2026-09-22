@@ -177,12 +177,19 @@ build() {
 }
 
 collect() {
+	if [ "$#" -eq 0 ]; then
+		# shellcheck disable=SC2086
+		set -- $PROJECTS_DE
+	fi
+
 	mkdir -p "$BUILD_DIR" || exit 1
 	find "$BUILD_DIR" -maxdepth 1 -type f \( \
 		-name '*.pkg.tar.zst' -o -name '*.pkg.tar.zst.sig' \
 	\) -delete
 
-	for project in $PROJECTS_DE; do
+	for project do
+		is_de_project "$project" || die "unknown DE project '$project'"
+
 		dist_dir="$ROOT_DE/$project/$PROJECTS_DE_DIST"
 		if [ -d "$dist_dir" ]; then
 			packages=$(find "$dist_dir" -maxdepth 1 -type f -name '*.zst' | sort -V)
@@ -209,7 +216,15 @@ collect() {
 }
 
 install_packages() {
-	collect || exit 1
+	[ "$#" -gt 0 ] || die "usage: make install full|PROJECT [PROJECT...]"
+	if [ "$1" = full ]; then
+		[ "$#" -eq 1 ] || die "install full does not accept project names"
+		build full
+		collect
+	else
+		build "$@"
+		collect "$@"
+	fi
 
 	set -- "$BUILD_DIR"/argvus-*.pkg.tar.zst
 	if [ ! -e "$1" ]; then
@@ -338,9 +353,11 @@ help() {
 	echo "      $PROJECTS_DE_DIST/ directory into $BUILD_DIR/."
 	echo "      Stale collected packages are removed first."
 	echo
-	echo "  install"
-	echo "      Install all collected argvus-*.pkg.tar.zst packages from $BUILD_DIR/"
-	echo "      using pacman."
+	echo "  install full"
+	echo "      Build and install all projects from de/."
+	echo
+	echo "  install <PROJECT> [PROJECT...]"
+	echo "      Build and install only the selected projects from de/."
 	echo
 	echo "  clean:dist"
 	echo "      Remove $PROJECTS_DE_DIST/ from all subprojects and the root $PROJECTS_DE_DIST/."
@@ -373,7 +390,8 @@ help() {
 	echo "  make build full"
 	echo "  make build argvus-hyprland argvus-appearance"
 	echo "  make collect"
-	echo "  make install"
+	echo "  make install full"
+	echo "  make install argvus-hyprland argvus-appearance"
 	echo "  make clean:dist"
 	echo "  make clean:all"
 	echo "  make push:main"
@@ -400,7 +418,7 @@ case "$command" in
 		collect
 		;;
 	install)
-		install_packages
+		install_packages "$@"
 		;;
 	push)
 		[ "$#" -eq 1 ] || die "branch name is required; usage: make push:<BRANCH>"

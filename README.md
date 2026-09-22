@@ -43,19 +43,14 @@ The `install` target installs packages with `pacman`, so it must be run on an Ar
 
 ## Quick start
 
-Clone all configured repositories, build every desktop project, and install the collected packages:
+Clone all configured repositories and install every desktop project:
 
 ```sh
 make clone full
-make build full
-make install
+make install full
 ```
 
-The `install` command runs `collect` before installing, so a separate collection step is not required. The shorter build-and-install workflow is therefore:
-
-```sh
-make build full && make install
-```
+The `install` command runs the corresponding `build` and `collect` steps before installing, so a separate build or collection step is not required.
 
 Before building, make sure the repositories have already been cloned with `make clone full` or a specific `make clone de ...` command.
 
@@ -82,7 +77,8 @@ This creates the `CLAUDE.md` link to `AGENTS.md` and the `.claude/skills` link t
 | `make build full` | Remove old package artifacts and build all projects from `de/`. |
 | `make build <project> [project...]` | Build only the selected projects from `de/`. |
 | `make collect` | Remove stale collected package files and copy package archives from available projects into `builds/`. |
-| `make install` | Collect packages and install the resulting `argvus-*.pkg.tar.zst` files with `pacman`. |
+| `make install full` | Build all projects, collect their packages, and install them with `pacman`. |
+| `make install <project> [project...]` | Build, collect, and install only the selected projects. |
 | `make clean:dist` | Remove per-project package output directories for installable desktop projects. |
 | `make clean:all` | Run available `clean` targets and remove generated package output, `node_modules`, and `builds/` across all cloned project groups. |
 | `make push:<branch>` | Push the selected branch of each desktop checkout to the configured `lab` and `gitea` remotes when available. |
@@ -108,8 +104,10 @@ make clone de argvus-hyprland argvus-appearance
 make clone web site-src packages
 make build full
 make build argvus-hyprland argvus-appearance
+make install full
+make install argvus-hyprland argvus-appearance
 make collect BUILD_DIR=/tmp/argvus-builds
-make install BUILD_DIR=/tmp/argvus-builds
+make install full BUILD_DIR=/tmp/argvus-builds
 ```
 
 ## Package handling
@@ -120,7 +118,7 @@ For each available installable project, `collect` copies files matching:
 *.pkg.tar.zst
 ```
 
-An adjacent `.sig` file is copied when present. Previously collected package and signature files are removed before collection, avoiding stale packages from older builds. `install` passes only package archives to `pacman`; signature files are not included in the installation argument list.
+An adjacent `.sig` file is copied when present. Previously collected package and signature files are removed before collection, avoiding stale packages from older builds. `install` builds and collects the requested scope before passing only its package archives to `pacman`; signature files are not included in the installation argument list.
 
 ## Git behavior
 
