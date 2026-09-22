@@ -3,7 +3,7 @@ TOOLS_MAIN := tools/main.sh
 .DEFAULT_GOAL := help
 
 .PHONY: help clone build \
-	collect install push% status clean\:dist clean\:all
+	collect install push% status clean\:dist clean\:all claude
 
 help:
 	@sh "$(TOOLS_MAIN)" help
