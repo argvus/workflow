@@ -1,0 +1,110 @@
+# ARGVUS Workflow
+
+This repository provides the central, Make-based workflow for the ARGVUS Linux desktop ecosystem. It creates a predictable local workspace for the independent ARGVUS repositories, clones projects from the configured Git provider, builds Arch Linux packages, collects the resulting artifacts, installs them on the host, and provides cleanup and multi-remote push helpers.
+
+The workflow is intentionally lightweight: the repository itself contains orchestration only. Each cloned project remains an independent checkout with its own Makefile, build system, package metadata, and Git history.
+
+## Workspace layout
+
+Running a clone target creates the following directories when needed:
+
+```text
+.
+├── de/       # ARGVUS desktop-environment projects
+├── web/      # Website and web-infrastructure projects
+├── misc/     # Miscellaneous repositories
+├── tools/    # Workflow command implementation
+└── builds/   # Packages collected for installation
+```
+
+The desktop projects listed in `PROJECTS_DE` are the installable projects by default. A project is expected to provide a `build` target and to place its package in `build/dist/` (or in the directory configured through `PROJECTS_DE_DIST`).
+
+## Requirements
+
+The host should provide:
+
+- GNU Make
+- Git and access to the configured remote repositories
+- The build dependencies required by each ARGVUS project
+- Arch Linux `makepkg` tooling for package-producing projects
+- `pacman` and `sudo` for installation
+
+The `install` target installs packages with `pacman`, so it must be run on an Arch Linux system with permission to elevate privileges.
+
+## Quick start
+
+Clone all configured repositories, build every desktop project, and install the collected packages:
+
+```sh
+make clone full
+make build full
+make install
+```
+
+The `install` command runs `collect` before installing, so a separate collection step is not required. The shorter build-and-install workflow is therefore:
+
+```sh
+make build full && make install
+```
+
+Before building, make sure the repositories have already been cloned with `make clone full` or a specific `make clone de ...` command.
+
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `make help` | Show the available commands and configurable variables. |
+| `make clone full` | Clone all projects into `de/`, `web/`, and `misc/`. Existing directories are left untouched. |
+| `make clone de <project> [project...]` | Clone selected desktop-environment projects into `de/`. |
+| `make clone web <project> [project...]` | Clone selected web projects into `web/`. |
+| `make clone misc <project> [project...]` | Clone selected miscellaneous projects into `misc/`. |
+| `make build full` | Remove old package artifacts and build all projects from `de/`. |
+| `make build <project> [project...]` | Build only the selected projects from `de/`. |
+| `make collect` | Remove stale collected package files and copy package archives from available projects into `builds/`. |
+| `make install` | Collect packages and install the resulting `argvus-*.pkg.tar.zst` files with `pacman`. |
+| `make clean:dist` | Remove per-project package output directories for installable desktop projects. |
+| `make clean:all` | Run available `clean` targets and remove generated package output, `node_modules`, and `builds/` across all cloned project groups. |
+| `make push:<branch>` | Push the selected branch of each desktop checkout to the configured `lab` and `gitea` remotes when available. |
+
+`collect` reports and skips projects without an output directory or package. `install` fails when no `argvus-*.pkg.tar.zst` archive is available.
+
+## Configuration
+
+Variables can be overridden on the command line without editing the Makefile:
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `BASE_URL` | `git@gitlab:argvus` | Base Git URL used to construct clone URLs such as `$(BASE_URL)/argvus-shell.git`. |
+| `PROJECTS_DE_DIST` | `build/dist` | Package output directory inside each desktop project. |
+| `BUILD_DIR` | `builds` | Local directory used to collect packages before installation. |
+| `REMOTES_PUSH` | `lab gitea` | Git remotes used by `push:<branch>`. |
+
+Examples:
+
+```sh
+make clone full BASE_URL=git@github.com:argvus
+make clone de argvus-hyprland argvus-appearance
+make clone web site-src packages
+make build full
+make build argvus-hyprland argvus-appearance
+make collect BUILD_DIR=/tmp/argvus-builds
+make install BUILD_DIR=/tmp/argvus-builds
+```
+
+## Package handling
+
+For each available installable project, `collect` copies files matching:
+
+```text
+*.pkg.tar.zst
+```
+
+An adjacent `.sig` file is copied when present. Previously collected package and signature files are removed before collection, avoiding stale packages from older builds. `install` passes only package archives to `pacman`; signature files are not included in the installation argument list.
+
+## Git behavior
+
+Clone targets skip any project directory that already exists. They do not fetch, reset, or modify an existing checkout. The push helper operates only on desktop projects, skips repositories without the requested local branch or configured remote, and stops if an actual push fails.
+
+## Scope and ownership
+
+This repository owns the cross-project workflow and directory layout. The Makefile is a thin command entry point; the implementation lives in `tools/main.sh`. Individual ARGVUS repositories own their source code, package versions, dependencies, and project-specific build and clean implementations. When those contracts change, update the workflow script or project Makefiles together.

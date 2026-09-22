@@ -1,0 +1,13 @@
+# Ignore all directory content
+/*
+
+# Allow Git to track specific files
+!/Makefile
+!/AGENTS.md
+!/README.md
+!/LICENSE
+!/.gitignore
+!/.agents/
+!/.agents/**
+!/tools/
+!/tools/**
