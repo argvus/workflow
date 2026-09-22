@@ -23,7 +23,7 @@ Documentation website:
 
 Local Codex skills:
 
-- `.codex/skills/`
+- `.agents/skills/`
 
 ## ARGVUS project model
 
@@ -56,7 +56,7 @@ Do not assume the repository where the UI lives owns the complete feature.
 
 ## Skills
 
-Use the local skills under `.codex/skills/` according to the task.
+Use the local skills under `.agents/skills/` according to the task.
 
 ### Documentation
 
@@ -66,7 +66,7 @@ For user-facing changes under `de/`, documentation synchronization is part of th
 
 Use:
 
-`.codex/skills/argvus-documentation/SKILL.md`
+`.agents/skills/argvus-documentation/SKILL.md`
 
 for documentation auditing, creation, reorganization, or updates.
 
@@ -74,7 +74,7 @@ for documentation auditing, creation, reorganization, or updates.
 
 Use:
 
-`.codex/skills/argvus-development/SKILL.md`
+`.agents/skills/argvus-development/SKILL.md`
 
 for implementation, refactoring, debugging, repository integration, and general
 changes under `de/`.
@@ -83,7 +83,7 @@ changes under `de/`.
 
 Use:
 
-`.codex/skills/argvus-rust-packaging/SKILL.md`
+`.agents/skills/argvus-rust-packaging/SKILL.md`
 
 when working with:
 
@@ -100,7 +100,7 @@ when working with:
 
 Use:
 
-`.codex/skills/argvus-hyprland/SKILL.md`
+`.agents/skills/argvus-hyprland/SKILL.md`
 
 when a task involves:
 
@@ -118,7 +118,7 @@ when a task involves:
 
 Use:
 
-`.codex/skills/argvus-ui/SKILL.md`
+`.agents/skills/argvus-ui/SKILL.md`
 
 when changing:
 
@@ -135,7 +135,7 @@ when changing:
 
 Use:
 
-`.codex/skills/argvus-i18n/SKILL.md`
+`.agents/skills/argvus-i18n/SKILL.md`
 
 when adding or changing user-visible strings or translation behavior.
 
@@ -143,7 +143,7 @@ when adding or changing user-visible strings or translation behavior.
 
 Use:
 
-`.codex/skills/argvus-session-integration/SKILL.md`
+`.agents/skills/argvus-session-integration/SKILL.md`
 
 for:
 
@@ -161,7 +161,7 @@ for:
 
 Use:
 
-`.codex/skills/argvus-web/SKILL.md`
+`.agents/skills/argvus-web/SKILL.md`
 
 for work under:
 
