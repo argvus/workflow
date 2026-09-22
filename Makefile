@@ -1,4 +1,4 @@
-TOOLS_MAIN := tools/main.sh
+TOOLS_MAIN := .tools/main.sh
 
 .DEFAULT_GOAL := help
 

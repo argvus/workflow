@@ -9,5 +9,5 @@
 !/.gitignore
 !/.agents/
 !/.agents/**
-!/tools/
-!/tools/**
+!/.tools/
+!/.tools/**

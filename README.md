@@ -23,7 +23,7 @@ Running a clone target creates the following directories when needed:
 ├── de/       # ARGVUS desktop-environment projects
 ├── web/      # Website and web-infrastructure projects
 ├── misc/     # Miscellaneous repositories
-├── tools/    # Workflow command implementation
+├── .tools/   # Workflow command implementation
 └── builds/   # Packages collected for installation
 ```
 
@@ -128,4 +128,4 @@ Clone targets skip any project directory that already exists. They do not fetch,
 
 ## Scope and ownership
 
-This repository owns the cross-project workflow and directory layout. The Makefile is a thin command entry point; the implementation lives in `tools/main.sh`. Individual ARGVUS repositories own their source code, package versions, dependencies, and project-specific build and clean implementations. When those contracts change, update the workflow script or project Makefiles together.
+This repository owns the cross-project workflow and directory layout. The Makefile is a thin command entry point; the implementation lives in `.tools/main.sh`. Individual ARGVUS repositories own their source code, package versions, dependencies, and project-specific build and clean implementations. When those contracts change, update the workflow script or project Makefiles together.
