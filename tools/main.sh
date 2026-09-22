@@ -32,10 +32,25 @@ die() {
 }
 
 use_claude() {
-	ln -s AGENTS.md CLAUDE.md
+	if [ -L CLAUDE.md ]; then
+		echo "==> CLAUDE.md already configured"
+	elif [ -e CLAUDE.md ]; then
+		die "CLAUDE.md already exists and is not a symlink"
+	else
+		ln -s AGENTS.md CLAUDE.md
+		echo "==> Created CLAUDE.md -> AGENTS.md"
+	fi
 
 	mkdir -p .claude
-	ln -s ../.agents/skills .claude/skills
+
+	if [ -L .claude/skills ]; then
+		echo "==> .claude/skills already configured"
+	elif [ -e .claude/skills ]; then
+		die ".claude/skills already exists and is not a symlink"
+	else
+		ln -s ../.agents/skills .claude/skills
+		echo "==> Created .claude/skills -> ../.agents/skills"
+	fi
 }
 
 clone_projects() {
