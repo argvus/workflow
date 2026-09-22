@@ -31,6 +31,13 @@ die() {
 	exit 1
 }
 
+use_claude() {
+	ln -s AGENTS.md CLAUDE.md
+
+	mkdir -p .claude
+	ln -s ../.agents/skills .claude/skills
+}
+
 clone_projects() {
 	root=$1
 	projects=$2
@@ -392,6 +399,9 @@ case "$command" in
 		;;
 	clean:all)
 		clean_all
+		;;
+	claude)
+		use_claude
 		;;
 	*)
 		die "unknown command '$command'"

@@ -32,6 +32,9 @@ clean\:dist:
 clean\:all:
 	@sh "$(TOOLS_MAIN)" clean:all
 
+claude:
+	@sh "$(TOOLS_MAIN)" claude
+
 # GNU Make treats positional modes and project names as independent goals.
 # Consume only those supplied alongside clone or build.
 ifneq ($(filter clone build,$(MAKECMDGOALS)),)

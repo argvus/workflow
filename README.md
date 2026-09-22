@@ -4,6 +4,16 @@ This repository provides the central, Make-based workflow for the ARGVUS Linux d
 
 The workflow is intentionally lightweight: the repository itself contains orchestration only. Each cloned project remains an independent checkout with its own Makefile, build system, package metadata, and Git history.
 
+After cloning this workflow repository, remove its root `.git/` directory before creating the child repositories. The `de/`, `web/`, and `misc/` directories will contain independent Git repositories, so the workflow directory should not remain a parent Git repository:
+
+```sh
+git clone <workflow-repository-url> workflow
+cd workflow
+rm -rf .git
+```
+
+Do not remove the `.git/` directories created inside `de/`, `web/`, or `misc/`; those belong to the individual project checkouts.
+
 ## Workspace layout
 
 Running a clone target creates the following directories when needed:
@@ -49,11 +59,22 @@ make build full && make install
 
 Before building, make sure the repositories have already been cloned with `make clone full` or a specific `make clone de ...` command.
 
+## Claude compatibility
+
+Run the following command from the workflow root to prepare the checkout for Claude:
+
+```sh
+make claude
+```
+
+This creates the `CLAUDE.md` link to `AGENTS.md` and the `.claude/skills` link to `.agents/skills`. Run it after cloning this workflow repository and before using Claude in the workspace. The command is intended for the workflow root; the cloned child repositories remain independent projects.
+
 ## Commands
 
 | Command | Purpose |
 | --- | --- |
 | `make help` | Show the available commands and configurable variables. |
+| `make claude` | Prepare the workflow checkout for Claude by creating the `CLAUDE.md` and `.claude/skills` links. |
 | `make clone full` | Clone all projects into `de/`, `web/`, and `misc/`. Existing directories are left untouched. |
 | `make clone de <project> [project...]` | Clone selected desktop-environment projects into `de/`. |
 | `make clone web <project> [project...]` | Clone selected web projects into `web/`. |
