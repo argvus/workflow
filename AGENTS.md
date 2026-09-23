@@ -62,6 +62,49 @@ Do not assume the repository where the UI lives owns the complete feature.
 
 Use the local skills under `.agents/skills/` according to the task.
 
+### Rust code conventions
+
+Use:
+
+`.agents/skills/argvus-rust-code/SKILL.md`
+
+whenever the affected project contains Rust code.
+
+Before implementing a task under `de/`, determine whether the affected repository
+is Rust-based by inspecting for:
+
+- `Cargo.toml`;
+- `Cargo.lock`;
+- Rust workspace members;
+- `.rs` source files.
+
+If Rust is involved, load and follow `argvus-rust-code` in addition to any
+domain-specific skills.
+
+Examples:
+
+Rust Control Center work:
+
+- argvus-development;
+- argvus-rust-code;
+- argvus-ui;
+- argvus-i18n.
+
+Rust Hyprland/backend work:
+
+- argvus-development;
+- argvus-rust-code;
+- argvus-hyprland.
+
+Rust package/build work:
+
+- argvus-development;
+- argvus-rust-code;
+- argvus-rust-packaging.
+
+Do not assume a project is Rust based only on its name. Detect it from its actual
+repository contents.
+
 ### Documentation
 
 IMPORTANT:
@@ -241,6 +284,20 @@ Repositories under `de/` include:
 Do not assume all repositories use the same language or build system.
 
 Inspect the repository before selecting commands.
+
+## Language detection
+
+Before selecting language-specific skills, inspect the affected repository.
+
+For Rust, detect at least one of:
+
+- `Cargo.toml`;
+- `Cargo.lock`;
+- `src/**/*.rs`;
+- `crates/*/Cargo.toml`.
+
+When Rust is present in the affected implementation, the `argvus-rust-code` skill
+is mandatory.
 
 ## Cross-project analysis
 
