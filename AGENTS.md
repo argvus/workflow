@@ -62,6 +62,54 @@ Do not assume the repository where the UI lives owns the complete feature.
 
 Use the local skills under `.agents/skills/` according to the task.
 
+### Theme creation
+
+Use:
+
+`.agents/skills/argvus-theme-creation/SKILL.md`
+
+whenever creating or adding a new official ARGVUS theme.
+
+This includes tasks that introduce:
+
+- a new theme ID;
+- a new official palette;
+- a Light/Dark theme variant;
+- a theme wallpaper;
+- a theme preview;
+- a new theme entry in Appearance > Themes.
+
+For new theme creation, updating only the desktop implementation under `de/` is
+not sufficient.
+
+The same task must also evaluate and synchronize:
+
+- the ARGVUS landing page under `web/`;
+- the ARGVUS documentation under `web/site-src/`.
+
+Theme creation normally requires these skills together:
+
+- `argvus-development`;
+- `argvus-theme-creation`;
+- `argvus-web`;
+- `argvus-documentation`;
+
+plus any applicable domain skills such as:
+
+- `argvus-rust-code`;
+- `argvus-ui`;
+- `argvus-i18n`;
+- `argvus-session-integration`;
+- `argvus-rust-packaging`;
+- `argvus-hyprland`.
+
+The implementation under `de/` remains authoritative. The landing page and
+documentation must be updated to reflect the final implemented theme.
+
+Do not postpone obvious landing-page or documentation synchronization to a future
+task unless the user explicitly asks to modify the desktop implementation only.
+
+
 ### Rust code conventions
 
 Use:
