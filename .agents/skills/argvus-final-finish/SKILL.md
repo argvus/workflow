@@ -16,4 +16,10 @@ feat: new implementation for X
 - A new implementation was carried out for X...
 ```
 
-- List the projects that were modified.
+- List the projects that have been modified and provide the `build` command for the Makefile—for example:
+
+```sh
+make build argvus argvus-hyprland argvus-control-center
+```
+
+Only for the modified projects.
