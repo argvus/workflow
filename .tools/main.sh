@@ -6,6 +6,8 @@ BASE_URL=${BASE_URL:-git@gitlab:argvus}
 REMOTES_PUSH=${REMOTES_PUSH:-lab gitea}
 PROJECTS_DE_DIST=${PROJECTS_DE_DIST:-build/dist}
 BUILD_DIR=${BUILD_DIR:-builds}
+ZIP_DIR=${ZIP_DIR:-zips}
+ZIP_EXCLUDES=${ZIP_EXCLUDES:-'.git/* target/* tmp/* build/*'}
 
 ROOT_DE=${ROOT_DE:-de}
 ROOT_WEB=${ROOT_WEB:-web}
@@ -215,6 +217,69 @@ collect() {
 	echo
 }
 
+zip_archive() {
+	project_dir=$1
+	zip_path=$2
+
+	(
+		cd "$project_dir" || exit 1
+		set -- -rq "$zip_path" .
+		set -f
+		for exclude in $ZIP_EXCLUDES; do
+			set -- "$@" -x "$exclude"
+		done
+		set +f
+		zip "$@"
+	)
+}
+
+zip_projects() {
+	[ "$#" -gt 0 ] || die "no projects were selected"
+
+	command -v zip >/dev/null 2>&1 || die "zip is required; install it first"
+
+	mkdir -p "$ZIP_DIR" || exit 1
+	out_dir=$(cd "$ZIP_DIR" && pwd) || exit 1
+
+	for project do
+		is_de_project "$project" || die "unknown DE project '$project'"
+
+		project_dir="$ROOT_DE/$project"
+		if [ ! -d "$project_dir" ]; then
+			echo "==> Skipping $project_dir; directory does not exist" >&2
+			continue
+		fi
+
+		echo "==> Compressing $project..."
+		rm -f "$ZIP_DIR/$project.zip"
+		zip_archive "$project_dir" "$out_dir/$project.zip" || {
+			echo "==> Failed to compress $project" >&2
+			continue
+		}
+	done
+
+	echo
+	echo "==> Zips available in $ZIP_DIR/:"
+	find "$ZIP_DIR" -maxdepth 1 -type f -name '*.zip' -printf '  %f\n' | sort || true
+	echo
+}
+
+zip_selected() {
+	[ "$#" -gt 0 ] || die "usage: make zip full|PROJECT [PROJECT...]"
+	if [ "$1" = full ]; then
+		[ "$#" -eq 1 ] || die "zip full does not accept project names"
+		zip_all
+	else
+		zip_projects "$@"
+	fi
+}
+
+zip_all() {
+	# shellcheck disable=SC2086
+	set -- $PROJECTS_DE
+	zip_projects "$@"
+}
+
 install_packages() {
 	[ "$#" -gt 0 ] || die "usage: make install full|PROJECT [PROJECT...]"
 	if [ "$1" = full ]; then
@@ -261,6 +326,45 @@ push_branch() {
 			echo "==> Skipping $project_dir; not a git repository"
 		fi
 	done
+}
+
+# Runs a git branch command in every DE project checkout.
+# Usage: git_branch_op <label> <branch> <git-subcommand> [git args...]
+git_branch_op() {
+	label=$1
+	branch=$2
+	shift 2
+
+	status=0
+	for project in $PROJECTS_DE; do
+		project_dir="$ROOT_DE/$project"
+		if [ ! -d "$project_dir/.git" ]; then
+			echo "==> Skipping $project_dir; not a git repository" >&2
+			continue
+		fi
+		echo "==> $label '$branch' in $project_dir..."
+		git -C "$project_dir" "$@" "$branch" || {
+			echo "==> Failed to $label '$branch' in $project_dir" >&2
+			status=1
+		}
+	done
+	return "$status"
+}
+
+checkout_branch() {
+	branch=$1
+	branch=${branch#:}
+	[ -n "$branch" ] || die "branch name is required; usage: make checkout:<BRANCH>"
+
+	git_branch_op "check out" "$branch" checkout || exit 1
+}
+
+switch_branch() {
+	branch=$1
+	branch=${branch#:}
+	[ -n "$branch" ] || die "branch name is required; usage: make switch:<BRANCH>"
+
+	git_branch_op "switch to new branch" "$branch" switch -c || exit 1
 }
 
 status_projects() {
@@ -359,6 +463,16 @@ help() {
 	echo "  install <PROJECT> [PROJECT...]"
 	echo "      Build and install only the selected projects from de/."
 	echo
+	echo "  zip-all"
+	echo "      Compress every project from de/ into $ZIP_DIR/<PROJECT>.zip."
+	echo "      Excluded by default: $ZIP_EXCLUDES"
+	echo
+	echo "  zip full"
+	echo "      Same as zip-all."
+	echo
+	echo "  zip <PROJECT> [PROJECT...]"
+	echo "      Compress only the selected projects from de/."
+	echo
 	echo "  clean:dist"
 	echo "      Remove $PROJECTS_DE_DIST/ from all subprojects and the root $PROJECTS_DE_DIST/."
 	echo
@@ -371,6 +485,14 @@ help() {
 	echo "  push:<BRANCH>"
 	echo "      Push the specified branch to all configured remotes."
 	echo
+	echo "  checkout:<BRANCH>"
+	echo "      Run 'git checkout <BRANCH>' in every DE project checkout."
+	echo "      The branch must already exist locally."
+	echo
+	echo "  switch:<BRANCH>"
+	echo "      Run 'git switch -c <BRANCH>' in every DE project checkout."
+	echo "      Fails where <BRANCH> already exists."
+	echo
 	echo "Variables:"
 	echo
 	echo "  BASE_URL"
@@ -382,6 +504,12 @@ help() {
 	echo "  BUILD_DIR"
 	echo "      Package collection directory (default: $BUILD_DIR)."
 	echo
+	echo "  ZIP_DIR"
+	echo "      Zip output directory (default: $ZIP_DIR)."
+	echo
+	echo "  ZIP_EXCLUDES"
+	echo "      Space-separated zip exclude patterns (default: $ZIP_EXCLUDES)."
+	echo
 	echo "Examples:"
 	echo
 	echo "  make clone full"
@@ -392,9 +520,13 @@ help() {
 	echo "  make collect"
 	echo "  make install full"
 	echo "  make install argvus-hyprland argvus-appearance"
+	echo "  make zip-all"
+	echo "  make zip argvus-hyprland argvus-appearance"
 	echo "  make clean:dist"
 	echo "  make clean:all"
 	echo "  make push:main"
+	echo "  make checkout:main"
+	echo "  make switch:feature/my-change"
 	echo
 	echo "Change Git provider:"
 	echo
@@ -417,12 +549,26 @@ case "$command" in
 	collect)
 		collect
 		;;
+	zip)
+		zip_selected "$@"
+		;;
+	zip-all)
+		zip_all
+		;;
 	install)
 		install_packages "$@"
 		;;
 	push)
 		[ "$#" -eq 1 ] || die "branch name is required; usage: make push:<BRANCH>"
 		push_branch "$1"
+		;;
+	checkout)
+		[ "$#" -eq 1 ] || die "branch name is required; usage: make checkout:<BRANCH>"
+		checkout_branch "$1"
+		;;
+	switch)
+		[ "$#" -eq 1 ] || die "branch name is required; usage: make switch:<BRANCH>"
+		switch_branch "$1"
 		;;
 	status)
 		status_projects

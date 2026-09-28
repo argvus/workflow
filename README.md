@@ -1,6 +1,6 @@
 # ARGVUS Workflow
 
-This repository provides the central, Make-based workflow for the ARGVUS Linux desktop ecosystem. It creates a predictable local workspace for the independent ARGVUS repositories, clones projects from the configured Git provider, builds Arch Linux packages, collects the resulting artifacts, installs them on the host, and provides cleanup and multi-remote push helpers.
+This repository provides the central, Make-based workflow for the ARGVUS Linux desktop ecosystem. It creates a predictable local workspace for the independent ARGVUS repositories, clones projects from the configured Git provider, builds Arch Linux packages, collects the resulting artifacts, installs them on the host, creates source archives, and provides cleanup and multi-remote push helpers.
 
 The workflow is intentionally lightweight: the repository itself contains orchestration only. Each cloned project remains an independent checkout with its own Makefile, build system, package metadata, and Git history.
 
@@ -24,7 +24,8 @@ Running a clone target creates the following directories when needed:
 ├── web/      # Website and web-infrastructure projects
 ├── misc/     # Miscellaneous repositories
 ├── .tools/   # Workflow command implementation
-└── builds/   # Packages collected for installation
+├── builds/   # Packages collected for installation
+└── zips/     # Source archives created by the zip targets
 ```
 
 The desktop projects listed in `PROJECTS_DE` are the installable projects by default. A project is expected to provide a `build` target and to place its package in `build/dist/` (or in the directory configured through `PROJECTS_DE_DIST`).
@@ -38,6 +39,7 @@ The host should provide:
 - The build dependencies required by each ARGVUS project
 - Arch Linux `makepkg` tooling for package-producing projects
 - `pacman` and `sudo` for installation
+- `zip` for the `zip-all` and `zip` targets
 
 The `install` target installs packages with `pacman`, so it must be run on an Arch Linux system with permission to elevate privileges.
 
@@ -79,9 +81,14 @@ This creates the `CLAUDE.md` link to `AGENTS.md` and the `.claude/skills` link t
 | `make collect` | Remove stale collected package files and copy package archives from available projects into `builds/`. |
 | `make install full` | Build all projects, collect their packages, and install them with `pacman`. |
 | `make install <project> [project...]` | Build, collect, and install only the selected projects. |
+| `make zip-all` | Compress every project from `de/` into `zips/<project>.zip`. |
+| `make zip full` | Same as `make zip-all`. |
+| `make zip <project> [project...]` | Compress only the selected projects from `de/`. |
 | `make clean:dist` | Remove per-project package output directories for installable desktop projects. |
 | `make clean:all` | Run available `clean` targets and remove generated package output, `node_modules`, and `builds/` across all cloned project groups. |
-| `make push:<branch>` | Push the selected branch of each desktop checkout to the configured `lab` and `gitea` remotes when available. |
+| `make push:<branch>` | Push the selected branch of each desktop checkout to the configured `lab` and `gitea` remotes when available. Branch names may contain `/`. |
+| `make checkout:<branch>` | Run `git checkout <branch>` in every desktop checkout under `de/`. The branch must already exist locally. |
+| `make switch:<branch>` | Run `git switch -c <branch>` in every desktop checkout under `de/`. |
 
 `collect` reports and skips projects without an output directory or package. `install` fails when no `argvus-*.pkg.tar.zst` archive is available.
 
@@ -94,6 +101,8 @@ Variables can be overridden on the command line without editing the Makefile:
 | `BASE_URL` | `git@gitlab:argvus` | Base Git URL used to construct clone URLs such as `$(BASE_URL)/argvus-shell.git`. |
 | `PROJECTS_DE_DIST` | `build/dist` | Package output directory inside each desktop project. |
 | `BUILD_DIR` | `builds` | Local directory used to collect packages before installation. |
+| `ZIP_DIR` | `zips` | Local directory used to write project source archives. |
+| `ZIP_EXCLUDES` | `.git/* target/* tmp/* build/*` | Space-separated patterns passed to `zip -x`. |
 | `REMOTES_PUSH` | `lab gitea` | Git remotes used by `push:<branch>`. |
 
 Examples:
@@ -108,7 +117,17 @@ make install full
 make install argvus-hyprland argvus-appearance
 make collect BUILD_DIR=/tmp/argvus-builds
 make install full BUILD_DIR=/tmp/argvus-builds
+make zip-all
+make zip-all ZIP_DIR=/tmp/argvus-zips
 ```
+
+## Source archives
+
+`zip-all` iterates over `PROJECTS_DE`, changes into each project directory under `de/`, and writes `zips/<project>.zip` next to the Makefile. `zip full` is an alias, and `zip <project>...` restricts the run to specific projects.
+
+Each archive is recreated from scratch, so a failed or partial archive is never left behind. Projects without a directory under `de/` are reported on stderr and skipped, and a failure in one project does not stop the remaining ones. A project name outside `PROJECTS_DE` is a hard error.
+
+Paths matching `ZIP_EXCLUDES` are dropped from the archive, including nested content: `.git/*`, `target/*`, `tmp/*`, and `build/*` are all removed recursively, so `build/dist/*.pkg.tar.zst` packages never end up in a source archive. The patterns are literal and are not subject to shell pathname expansion.
 
 ## Package handling
 
@@ -123,6 +142,10 @@ An adjacent `.sig` file is copied when present. Previously collected package and
 ## Git behavior
 
 Clone targets skip any project directory that already exists. They do not fetch, reset, or modify an existing checkout. The push helper operates only on desktop projects, skips repositories without the requested local branch or configured remote, and stops if an actual push fails.
+
+`checkout:<branch>` and `switch:<branch>` iterate over `PROJECTS_DE` and run the requested Git command in every project that is a Git checkout, reporting the ones that are not. A failure in one project does not stop the others, and the command exits non-zero if any project failed. Neither target uses a forced checkout, so Git refuses to switch when local modifications would be lost; no uncommitted work is discarded. `switch:<branch>` additionally fails in any project where the branch already exists, because `git switch -c` does not reuse an existing branch.
+
+These targets are dispatched by name, not by Make pattern rules. A Make target cannot contain `:`, and Make splits a goal on `/` before matching it against a pattern, so both `make push:main` and `make push:feature/name` are handled by the Makefile's `.DEFAULT` rule. Goals outside `push`, `checkout`, and `switch` still fail with the standard unknown-target error.
 
 ## Scope and ownership
 
