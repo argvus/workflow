@@ -1,13 +1,12 @@
 ---
-name: argvus-final-finish
-description: Applies final finish after the entire implementation.
+name: argvus-suggestion-commits
+description: Provide commit suggestions for changes.
 ---
 
-# ARGVUS Final Finish Workflow
+# ARGVUS Suggestion Commits Workflow
 
 Use this skill to finish:
 
-- Update or implement the changes in the documentation (if necessary).
 - Create and display (do not commit) professional commit messages for each project where changes were made. The messages must follow the *Conventional Commits* format (using `feat:`, `fix:`, `chore:`, `docs:`, etc.) and include a description. For example:
 
 ```sh
@@ -16,10 +15,6 @@ feat: new implementation for X
 - A new implementation was carried out for X...
 ```
 
-- List the projects that have been modified and provide the `build` command for the Makefile—for example:
-
-```sh
-make build argvus argvus-hyprland argvus-control-center
-```
+- Summarize what was done.
 
 Only for the modified projects.
