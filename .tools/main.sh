@@ -22,7 +22,7 @@ argvus-session argvus-hyprland argvus-launcher
 argvus-taskbar argvus-i18n argvus-splash argvus-fonts
 argvus-wallpapers argvus-removable-devices argvus-greeter
 argvus-accounts argvus-control-center argvus-taskbar-calendar
-argvus-theme-splash argvus-tui'}
+argvus-theme-splash argvus-tui argvus-game-snake'}
 PROJECTS_WEB=${PROJECTS_WEB:-'argvus-logo argvus-extras site-src packages'}
 PROJECTS_MISC=${PROJECTS_MISC:-'TODO feedback pubkey'}
 
