@@ -9,5 +9,6 @@ Use this skill to finish:
 
 - DO NOT commit.
 - DO NOT push.
+- DO NOT build.
 - DO NOT use `git reset`.
 - DO NOT alter the documentation in `web/site-src`.
