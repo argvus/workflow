@@ -98,7 +98,7 @@ Variables can be overridden on the command line without editing the Makefile:
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `BASE_URL` | `git@gitlab:argvus` | Base Git URL used to construct clone URLs such as `$(BASE_URL)/argvus-shell.git`. |
+| `BASE_URL` | `git@gitlab:argvus` | Base Git URL used to construct clone URLs such as `$(BASE_URL)/argvus-hyprland.git`. |
 | `PROJECTS_DE_DIST` | `build/dist` | Package output directory inside each desktop project. |
 | `BUILD_DIR` | `builds` | Local directory used to collect packages before installation. |
 | `ZIP_DIR` | `zips` | Local directory used to write project source archives. |

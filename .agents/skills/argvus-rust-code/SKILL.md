@@ -51,6 +51,40 @@ Do not optimize for minimum line count.
 
 Do not use clever abstractions when straightforward code is clearer.
 
+## Core principles
+
+When a situation is not covered by a rule below, reason from these:
+
+1. Make invalid states unrepresentable: use enums and newtypes so the compiler
+   rejects bugs.
+2. Errors are values: return `Result`; reserve panics for broken invariants and
+   tests.
+3. Own simply, borrow generously: take borrowed parameters, return owned values.
+4. Keep the surface small: private by default, narrow public API, modules by
+   responsibility.
+5. Comments explain why; names and types explain what; docs describe the
+   contract.
+6. Simple first, fast when measured.
+7. Let the toolchain enforce style: `rustfmt`, `clippy` and tests.
+
+## Extended references
+
+This file holds the mandatory ARGVUS rules. Deeper guidance lives in
+`references/`, next to this file. Read only the files that match the task:
+
+| Task | Read |
+| --- | --- |
+| Writing or reviewing types, errors, ownership, iterators, traits, concurrency, `unsafe`, performance | `references/idioms-and-types.md` |
+| Writing comments, rustdoc, doctests, TODOs, README or changelog content | `references/documentation.md` |
+| Splitting files, modules or crates; visibility; workspace layout; refactoring a large file | `references/modularization.md` |
+| Tests, lint configuration, dependencies, `Cargo.toml`, CI | `references/tooling-and-testing.md` |
+| CLI (clap) or TUI (ratatui) applications | `references/cli-and-tui.md` |
+
+Precedence: the rules in this file and the conventions already used by the
+project win over the references. When the project deviates from a reference
+(error crate, module layout, comment style), follow the project and mention the
+deviation instead of silently changing it.
+
 ## Naming
 
 Use descriptive names.
@@ -646,26 +680,10 @@ Use `///` especially for:
 
 Do not add verbose rustdoc to trivial getters/setters or obvious private helpers.
 
-## Review checklist additions
-
-Add these checks to the Rust review checklist:
-
-- Does non-trivial code contain enough comments to explain intent and constraints?
-- Were comments updated when behavior changed?
-
-## Documentation comments
-
-Use `///` for public or reusable APIs where callers need behavioral understanding.
-
-Document:
-
-- purpose;
-- important invariants;
-- errors;
-- side effects;
-- unusual ownership/lifetime behavior.
-
-Do not add verbose rustdoc to trivial private functions.
+Document, where they apply: purpose, important invariants, errors (`# Errors`),
+panics (`# Panics`), side effects and unusual ownership or lifetime behavior.
+See `references/documentation.md` for structure, doctests and module-level
+`//!` docs.
 
 ## Iterators
 
@@ -1009,6 +1027,27 @@ If nearby code violates these conventions but changing it is unnecessary:
 - improve touched code when safe;
 - do not create huge unrelated diffs.
 
+## Reviewing existing Rust code
+
+When reviewing or auditing, group findings by severity and check them in this
+order:
+
+1. Correctness: `unwrap` / `expect` on fallible input, truncating `as` casts,
+   indexing that can panic, locks held across `.await`, ignored `Result`s.
+2. Design: primitive obsession, boolean flags that should be enums, god modules,
+   public fields that should be private, leaky abstractions, cyclic module
+   dependencies.
+3. Ownership: needless `clone()` in hot paths, `&String` / `&Vec<T>`
+   parameters, `Rc<RefCell<_>>` used to dodge a design problem, `'static` bounds
+   added to silence the compiler.
+4. Readability: functions over about 50 lines, deep nesting, commented-out code,
+   comments that restate the code, misleading names.
+5. Hygiene: missing docs on public items, no tests for tricky logic, unjustified
+   `unsafe`, unused dependencies.
+
+For each finding quote the offending line, say what is wrong and why it matters,
+and show the fix. Mention legitimate exceptions instead of being dogmatic.
+
 ## Review checklist
 
 Before completing a Rust task, check:
@@ -1024,6 +1063,14 @@ Before completing a Rust task, check:
 - Are generated files derived rather than authoritative?
 - Are user-visible strings localized?
 - Are tests named meaningfully?
+- Does non-trivial code contain enough comments to explain intent and constraints?
+- Were comments updated when behavior changed?
+- Are booleans, magic strings and primitive values that carry domain meaning
+  replaced by enums, newtypes or constants?
+- Is every `unsafe` block justified with a `// SAFETY:` comment?
+- Do new public items have rustdoc, including `# Errors` / `# Panics` where
+  they apply?
+- Is dependency usage minimal and reported?
 - Does Clippy pass?
 - Does rustfmt pass?
 
@@ -1036,4 +1083,5 @@ For Rust changes, report:
 - notable ownership/error-handling decisions;
 - tests added;
 - fmt/check/clippy/test results;
+- dependency changes;
 - remaining technical limitations.

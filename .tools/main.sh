@@ -22,7 +22,14 @@ argvus-session argvus-hyprland argvus-launcher
 argvus-taskbar argvus-i18n argvus-splash argvus-fonts
 argvus-wallpapers argvus-removable-devices argvus-greeter
 argvus-accounts argvus-control-center argvus-taskbar-calendar
-argvus-theme-splash argvus-tui argvus-game-snake'}
+argvus-loading-theme argvus-tui argvus-game-snake argvus-theme-catppuccin-latte
+argvus-theme-dracula argvus-theme-everforest-light
+argvus-theme-github-light argvus-theme-gruvbox-dark argvus-theme-gruvbox-high-dark
+argvus-theme-gruvbox-light argvus-theme-hackerman argvus-theme-monokai-dark
+argvus-theme-one-dark argvus-theme-one-light argvus-theme-rose-pine
+argvus-theme-silver-dark argvus-theme-slate-dark argvus-theme-solarized-light
+argvus-theme-solitude argvus-theme-sunset argvus-theme-tokyo-night argvus-theme-universe
+argvus-themes'}
 PROJECTS_WEB=${PROJECTS_WEB:-'argvus-logo argvus-extras site-src packages'}
 PROJECTS_MISC=${PROJECTS_MISC:-'TODO feedback pubkey'}
 
@@ -149,15 +156,17 @@ build_projects() {
 		project_dir="$ROOT_DE/$project"
 		dist_dir="$project_dir/$PROJECTS_DE_DIST"
 
-		if [ -d "$dist_dir" ]; then
-			echo "==> Removing existing packages from $dist_dir..."
-			find "$dist_dir" -maxdepth 1 -type f \( \
-				-name '*.pkg.tar.zst' -o -name '*.pkg.tar.zst.sig' \
-			\) -delete
-		fi
-
 		if [ -f "$project_dir/Makefile" ] && \
 			grep -Eq '^[[:space:]]*build[[:space:]]*:' "$project_dir/Makefile"; then
+			# Remove stale packages only for projects that are rebuilt, so a
+			# project without a build target keeps its existing artifacts.
+			if [ -d "$dist_dir" ]; then
+				echo "==> Removing existing packages from $dist_dir..."
+				find "$dist_dir" -maxdepth 1 -type f \( \
+					-name '*.pkg.tar.zst' -o -name '*.pkg.tar.zst.sig' \
+				\) -delete
+			fi
+
 			echo "==> Building $project..."
 			"$MAKE_COMMAND" -C "$project_dir" build || exit 1
 		else
@@ -194,7 +203,7 @@ collect() {
 
 		dist_dir="$ROOT_DE/$project/$PROJECTS_DE_DIST"
 		if [ -d "$dist_dir" ]; then
-			packages=$(find "$dist_dir" -maxdepth 1 -type f -name '*.zst' | sort -V)
+			packages=$(find "$dist_dir" -maxdepth 1 -type f -name '*.pkg.tar.zst' | sort -V)
 			if [ -z "$packages" ]; then
 				echo "==> No package found for $project" >&2
 				continue
@@ -392,7 +401,7 @@ clean_dist() {
 clean_project() {
 	project_dir=$1
 	if [ -f "$project_dir/Makefile" ] && \
-		grep -q '^clean:' "$project_dir/Makefile"; then
+		grep -Eq '^[[:space:]]*clean[[:space:]]*:' "$project_dir/Makefile"; then
 		echo "==> Cleaning $project_dir..."
 		"$MAKE_COMMAND" -C "$project_dir" clean || exit 1
 	fi
@@ -473,6 +482,10 @@ help() {
 	echo "  zip <PROJECT> [PROJECT...]"
 	echo "      Compress only the selected projects from de/."
 	echo
+	echo "  claude"
+	echo "      Create the CLAUDE.md -> AGENTS.md and .claude/skills ->"
+	echo "      ../.agents/skills links so Claude uses the workflow skills."
+	echo
 	echo "  clean:dist"
 	echo "      Remove $PROJECTS_DE_DIST/ from all subprojects and the root $PROJECTS_DE_DIST/."
 	echo
@@ -522,6 +535,7 @@ help() {
 	echo "  make install argvus-hyprland argvus-appearance"
 	echo "  make zip-all"
 	echo "  make zip argvus-hyprland argvus-appearance"
+	echo "  make claude"
 	echo "  make clean:dist"
 	echo "  make clean:all"
 	echo "  make push:main"
@@ -534,7 +548,11 @@ help() {
 }
 
 command=${1:-help}
-shift 2>/dev/null || true
+# A bare `shift` aborts POSIX shells such as dash when there are no arguments,
+# even with `|| true`, so only shift when there is something to remove.
+if [ "$#" -gt 0 ]; then
+	shift
+fi
 
 case "$command" in
 	help)

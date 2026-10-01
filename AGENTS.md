@@ -109,6 +109,40 @@ documentation must be updated to reflect the final implemented theme.
 Do not postpone obvious landing-page or documentation synchronization to a future
 task unless the user explicitly asks to modify the desktop implementation only.
 
+### Shell Script Skills
+
+#### argvus-shell-script-code
+
+**Purpose:** Shell script best practices for ARGVUS workflow orchestration
+
+**Key Topics:**
+
+- POSIX shell compatibility (dash, bash, zsh)
+- Error handling and exit codes
+- Argument parsing and validation
+- Variable quoting and parameter expansion
+- Function organization and documentation
+- Testing and validation patterns
+- ARGVUS-specific patterns (Make integration, symlink management, artifact collection)
+- Common pitfalls and debugging techniques
+- Security and sanitization
+
+**When to Use:**
+
+- Writing or reviewing `.sh` scripts in ARGVUS projects
+- Integrating shell scripts with the Make-based workflow
+- Debugging shell script failures in CI/CD
+- Ensuring cross-system compatibility
+
+**Key Principles:**
+
+1. POSIX shell first (dash compatibility)
+2. Explicit error handling on all fallible commands
+3. Always quote variables to prevent word-splitting
+4. Guard against edge cases (empty arguments, missing files)
+5. Clear function documentation and test coverage
+
+**Example Use:** `claude I need to write a script that safely collects build artifacts`
 
 ### Rust code conventions
 
@@ -152,6 +186,11 @@ Rust package/build work:
 
 Do not assume a project is Rust based only on its name. Detect it from its actual
 repository contents.
+
+`argvus-rust-code` also ships extended references under
+`.agents/skills/argvus-rust-code/references/` (idioms and types, documentation,
+modularization, tooling and testing, CLI and TUI). Load only the ones that match
+the task.
 
 ### Documentation
 
@@ -264,6 +303,21 @@ for work under:
 
 including Astro/Starlight and other web projects.
 
+### Finishing and commit skills
+
+Use these only when the user asks for the corresponding step:
+
+- `argvus-show-resume`: summarize what was done in the modified projects.
+- `argvus-suggestion-build`: list the modified projects and the `make build`
+  command for them.
+- `argvus-suggestion-commits`: display (never run) Conventional Commit messages
+  for each modified project.
+- `argvus-do-it-commits`: create the commits for the changes.
+- `argvus-general-commit`: commit every project under `de/` that has changes.
+- `argvus-update-documentation`: update the documentation of modified projects.
+- `argvus-dont-do-it`: restrictions (no commit, push, build, `git reset` or
+  documentation changes under `web/site-src`).
+
 Multiple skills may apply to the same task.
 
 Example:
@@ -306,6 +360,7 @@ Repositories under `de/` include:
 - `argvus-display`
 - `argvus-firewall`
 - `argvus-fonts`
+- `argvus-game-snake`
 - `argvus-greeter`
 - `argvus-hyprland`
 - `argvus-i18n`

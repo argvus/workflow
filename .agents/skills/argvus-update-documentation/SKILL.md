@@ -1,6 +1,6 @@
 ---
 name: argvus-update-documentation
-description: Applies the final finish while updating documentation.
+description: Final step that updates the documentation for the modified projects when needed. Use when the user asks to finish by updating documentation.
 ---
 
 # ARGVUS Update Documentation Workflow

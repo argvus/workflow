@@ -1,6 +1,6 @@
 ---
 name: argvus-suggestion-build
-description: Applies final finish after the entire implementation.
+description: Final step that lists the modified projects and the `make build` command to rebuild them. Use when the user asks for build suggestions.
 ---
 
 # ARGVUS Suggestion Build Workflow

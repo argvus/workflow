@@ -1,6 +1,6 @@
 ---
 name: argvus-show-resume
-description: Applies final finish after the entire implementation.
+description: Final step that summarizes what was done, only for the modified projects. Use when the user asks for a resume or summary of the implementation.
 ---
 
 # ARGVUS Show Resume Workflow
