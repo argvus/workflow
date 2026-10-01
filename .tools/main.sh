@@ -56,9 +56,55 @@ use_claude() {
 		echo "==> .claude/skills already configured"
 	elif [ -e .claude/skills ]; then
 		die ".claude/skills already exists and is not a symlink"
+	elif [ -L .claude/commands ]; then
+		echo "==> .claude/commands already configured"
+	elif [ -e .claude/commands ]; then
+		die ".claude/commands already exists and is not a symlink"
 	else
-		ln -s ../.agents/skills .claude/skills
-		echo "==> Created .claude/skills -> ../.agents/skills"
+		ln -s ../.ia/skills .claude/skills
+		echo "==> Created .claude/skills -> ../.ia/skills"
+		ln -s ../.ia/commands .claude/commands
+		echo "==> Created .claude/commands -> ../.ia/commands"
+	fi
+}
+
+use_opencode() {
+
+	mkdir -p .opencode .agents
+
+	if [ -L .agents/skills ]; then
+		echo "==> .agents/skills already configured"
+	elif [ -e .agents/skills ]; then
+		die ".agents/skills already exists and is not a symlink"
+	elif [ -L .opencode/commands ]; then
+		echo "==> .opencode/commands already configured"
+	elif [ -e .opencode/commands ]; then
+		die ".opencode/commands already exists and is not a symlink"
+	else
+		ln -s ../.ia/skills .agents/skills
+		echo "==> Created .agents/skills -> ../.ia/skills"
+		ln -s ../.ia/commands .opencode/commands
+		echo "==> Created .opencode/commands -> ../.ia/commands"
+	fi
+}
+
+use_codex() {
+
+	mkdir -p .codex .agents
+
+	if [ -L .agents/skills ]; then
+		echo "==> .agents/skills already configured"
+	elif [ -L .codex/prompts ]; then
+		echo "==> .codex/prompts already configured"
+	elif [ -e .agents/skills ]; then
+		die ".agents/skills already exists and is not a symlink"
+	elif [ -e .codex/commands ]; then
+		die ".codex/commands already exists and is not a symlink"
+	else
+		ln -s ../.ia/skills .agents/skills
+		echo "==> Created .agents/skills -> ../.ia/skills"
+		ln -s ../.ia/commands .codex/prompts
+		echo "==> Created .codex/prompts -> ../.ia/commands"
 	fi
 }
 
@@ -326,7 +372,7 @@ push_branch() {
 			for remote in $REMOTES_PUSH; do
 				if git -C "$project_dir" remote get-url "$remote" >/dev/null 2>&1; then
 					echo "==> Pushing $project_dir -> $remote/$branch..."
-					git -C "$project_dir" push "$remote" "$branch" || exit 1
+					git -C "$project_dir" push "--force-with-lease" "$remote" "$branch" || exit 1
 				else
 					echo "==> Skipping $project_dir; remote $remote not configured"
 				fi
@@ -482,9 +528,20 @@ help() {
 	echo "  zip <PROJECT> [PROJECT...]"
 	echo "      Compress only the selected projects from de/."
 	echo
+	echo "  codex"
+	echo "      Create ->"
+	echo "      ../.agents/skills links so Codex uses the workflow skills."
+	echo "      ../.codex/prompts links so Codex uses the workflow prompts."
+	echo
 	echo "  claude"
-	echo "      Create the CLAUDE.md -> AGENTS.md and .claude/skills ->"
-	echo "      ../.agents/skills links so Claude uses the workflow skills."
+	echo "      Create ->"
+	echo "      CLAUDE.md -> AGENTS.md"
+	echo "      ../.claude/skills links so Claude uses the workflow skills."
+	echo "      ../.claude/commands links so Claude uses the workflow commands."
+	echo
+	echo "  opencode"
+	echo "      Create ->"
+	echo "      ../.agents/commands links so OpenCode uses the workflow commands."
 	echo
 	echo "  clean:dist"
 	echo "      Remove $PROJECTS_DE_DIST/ from all subprojects and the root $PROJECTS_DE_DIST/."
@@ -597,8 +654,14 @@ case "$command" in
 	clean:all)
 		clean_all
 		;;
+	codex)
+		use_codex
+		;;
 	claude)
 		use_claude
+		;;
+	opencode)
+		use_opencode
 		;;
 	*)
 		die "unknown command '$command'"

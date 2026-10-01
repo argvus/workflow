@@ -36,8 +36,14 @@ clean\:dist:
 clean\:all:
 	@sh "$(TOOLS_MAIN)" clean:all
 
+codex:
+	@sh "$(TOOLS_MAIN)" codex
+
 claude:
 	@sh "$(TOOLS_MAIN)" claude
+
+opencode:
+	@sh "$(TOOLS_MAIN)" opencode
 
 # GNU Make treats positional modes and project names as independent goals.
 # Consume only those supplied alongside clone, build, install, or zip.
