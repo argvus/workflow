@@ -19,7 +19,7 @@ argvus-firewall argvus-icons argvus-lock
 argvus-network argvus-notifications argvus-portal
 argvus-power argvus-terminal argvus-system-monitor
 argvus-session argvus-hyprland argvus-launcher
-argvus-taskbar argvus-i18n argvus-splash argvus-fonts
+argvus-taskbar argvus-i18n argvus-boot-splash argvus-fonts
 argvus-wallpapers argvus-removable-devices argvus-greeter
 argvus-accounts argvus-control-center argvus-taskbar-calendar
 argvus-loading-theme argvus-tui argvus-game-snake argvus-theme-catppuccin-latte
