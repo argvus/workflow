@@ -581,6 +581,24 @@ For Rust projects based on `skeleton-pkg-rust`:
 
 For Arch-only packaging projects based on `skeleton-pkg`, preserve that structure.
 
+## Temporary and test files
+
+Never create temporary, scratch, debug, or throwaway files inside any project or in
+the workspace root. This includes:
+
+- ad-hoc test or experiment scripts;
+- debug scripts and one-off helpers;
+- temporary outputs, logs, dumps, and fixtures.
+
+Create these in `/tmp/argvus/` instead, and remove what you created when the task is done.
+
+If a script is genuinely useful to the project, do not leave it in the project root.
+Propose adding it to the project's proper location (for example `tests/` or
+`scripts/`) and wait for approval.
+
+Real project tests (for example `#[test]` in Rust or the project's `tests/`
+directory) follow the project's normal structure and are not affected by this rule.
+
 ## Git safety
 
 There may be uncommitted work.
