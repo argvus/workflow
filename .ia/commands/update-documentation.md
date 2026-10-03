@@ -27,7 +27,7 @@ Follow these rules:
 
 5. Compare the existing documentation with the actual state of the projects in `de/`.
 6. Update each project's `docs/` folder to:
-- add documentation for projects or features that are not yet documented (creating `docs/` if a project has none);
+- add documentation for features that are not yet documented, only in projects that already have a `docs/` folder (projects without `docs/` are skipped: never create `docs/`);
 - correct outdated information;
 - update features that have changed;
 - remove information that no longer matches the code;

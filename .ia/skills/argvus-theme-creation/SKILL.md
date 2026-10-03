@@ -351,6 +351,8 @@ documented there):
 
 Do not write theme documentation to `web/argvus-website/`.
 
+If an affected project has no `docs/` folder, do not create one; skip its documentation and say so in the final report.
+
 Find the current theme/appearance documentation from the `docs/` folders of the
 affected projects.
 

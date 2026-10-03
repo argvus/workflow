@@ -168,7 +168,8 @@ Before completing the task:
 
 1. identify whether the implementation changed user-visible or contributor-visible behavior;
 2. inspect the relevant documentation in the modified project's `docs/` folder (for example `de/<project>/docs/`);
-3. update it when necessary;
+3. update it, or add new content to it, whenever a feature was changed or added;
+   if the project has no `docs/` folder, do not create one and do not create documentation;
 4. use the `argvus-documentation` skill for documentation work;
 5. validate the documentation when files were changed, using the checks defined by the project.
 

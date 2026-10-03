@@ -202,7 +202,7 @@ the task.
 
 IMPORTANT:
 
-For user-facing changes under `de/`, documentation synchronization is part of the definition of done, not a separate optional follow-up task.
+For user-facing changes under `de/`, documentation synchronization is part of the definition of done, not a separate optional follow-up task, but only for projects that have a `docs/` folder (never create `docs/` where it does not exist).
 
 Use:
 
@@ -447,6 +447,10 @@ must be evaluated for corresponding documentation changes in:
 the `docs/` folder of the project that was modified (for example a change in
 `de/argvus-hyprland` must update `de/argvus-hyprland/docs/`).
 
+**Only projects that already have a `docs/` folder are documented. If the modified
+project has no `docs/` folder, do NOT create it and do NOT create documentation
+for that project.**
+
 This applies to:
 
 - new features;
@@ -474,11 +478,11 @@ After modifying a project under `de/`:
 
 1. determine whether the change affects public/user/developer documentation;
 2. locate the relevant documentation in the modified project's `docs/` folder;
-3. update existing documentation or create the necessary section/page;
+3. if the project has a `docs/` folder, update the existing documentation or add the necessary section/page inside it; if it has no `docs/` folder, stop here and do not create documentation;
 4. update internal cross-links/navigation when needed;
 5. validate the documentation using the checks the project defines.
 
-Do not create documentation for purely internal changes that have no meaningful
+Do not create documentation for projects without a `docs/` folder, nor for purely internal changes that have no meaningful
 user-facing or contributor-facing impact.
 
 Examples of changes that normally require documentation updates:

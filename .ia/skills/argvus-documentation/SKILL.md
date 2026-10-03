@@ -29,8 +29,11 @@ The documentation that must be updated is always the `docs/` folder of the
 project being worked on, never a central site. `web/argvus-website/` no longer
 holds project documentation.
 
-If a project has no `docs/` folder yet, create it following the conventions of
-sibling projects' `docs/` folders.
+If a project has no `docs/` folder, do NOT create it and do NOT write documentation
+for that project. Skip it and report that it has no `docs/`.
+
+Whenever a project under `de/` is changed (feature changed or added), its existing
+`docs/` must be updated or extended in the same task.
 
 ## Automatic documentation follow-up
 
