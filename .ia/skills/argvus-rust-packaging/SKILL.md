@@ -1,6 +1,6 @@
 ---
 name: argvus-rust-packaging
-description: Rust workspace and Arch Linux packaging workflow for ARGVUS projects using skeleton-rs-pkg or skeleton-pkg.
+description: Rust workspace and Arch Linux packaging workflow for ARGVUS projects using skeleton-pkg-rust or skeleton-pkg.
 ---
 
 # ARGVUS Rust and Packaging Workflow
@@ -11,7 +11,7 @@ Use this skill when working on Rust projects or Arch packaging.
 
 Rust + Arch packaging standard:
 
-`skeleton-rs-pkg`
+`skeleton-pkg-rust`
 
 Arch-only packaging standard:
 

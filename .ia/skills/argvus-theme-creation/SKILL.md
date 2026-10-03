@@ -97,7 +97,7 @@ Web projects:
 
 Documentation site:
 
-`/home/boss/Projects/github/organizations/argvus/web/site-src/`
+`/home/boss/Projects/github/organizations/argvus/web/argvus-website/`
 
 ---
 
@@ -342,7 +342,7 @@ theme gallery. Instead, document why no landing-page file needed modification.
 
 Every new official ARGVUS theme must be reflected in the documentation under:
 
-`/home/boss/Projects/github/organizations/argvus/web/site-src/`
+`/home/boss/Projects/github/organizations/argvus/web/argvus-website/`
 
 Find the current theme/appearance documentation from the source tree.
 
@@ -443,7 +443,7 @@ git diff --check
 Validate the website using the commands defined by its current package/project
 configuration.
 
-Validate documentation under `web/site-src/` using its actual Astro/Starlight
+Validate documentation under `web/argvus-website/` using its actual Astro/Starlight
 commands.
 
 Do not guess package-manager commands. Inspect the current project first.
@@ -536,7 +536,7 @@ de/
 +
 web landing page
 +
-web/site-src documentation
+web/argvus-website documentation
 ```
 
 in the same implementation task.

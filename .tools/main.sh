@@ -30,7 +30,7 @@ argvus-theme-one-dark argvus-theme-one-light argvus-theme-rose-pine
 argvus-theme-silver-dark argvus-theme-slate-dark argvus-theme-solarized-light
 argvus-theme-solitude argvus-theme-sunset argvus-theme-tokyo-night argvus-theme-universe
 argvus-themes'}
-PROJECTS_WEB=${PROJECTS_WEB:-'argvus-logo argvus-extras site-src packages'}
+PROJECTS_WEB=${PROJECTS_WEB:-'argvus-logo argvus-extras argvus-website packages'}
 PROJECTS_MISC=${PROJECTS_MISC:-'TODO feedback pubkey'}
 
 MAKE_COMMAND=${MAKE:-make}
@@ -584,7 +584,7 @@ help() {
 	echo
 	echo "  make clone full"
 	echo "  make clone de argvus-hyprland argvus-appearance"
-	echo "  make clone web site-src packages"
+	echo "  make clone web argvus-website packages"
 	echo "  make build full"
 	echo "  make build argvus-hyprland argvus-appearance"
 	echo "  make collect"

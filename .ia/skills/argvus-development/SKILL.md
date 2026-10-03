@@ -167,7 +167,7 @@ Every implementation change under `de/` must include a documentation impact chec
 Before completing the task:
 
 1. identify whether the implementation changed user-visible or contributor-visible behavior;
-2. inspect the relevant documentation under `web/site-src/`;
+2. inspect the relevant documentation under `web/argvus-website/`;
 3. update it when necessary;
 4. use the `argvus-documentation` skill for documentation work;
 5. validate the documentation site when files were changed.

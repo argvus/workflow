@@ -110,7 +110,7 @@ Examples:
 ```sh
 make clone full BASE_URL=git@github.com:argvus
 make clone de argvus-hyprland argvus-appearance
-make clone web site-src packages
+make clone web argvus-website packages
 make build full
 make build argvus-hyprland argvus-appearance
 make install full

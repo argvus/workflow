@@ -1,6 +1,6 @@
 ---
 name: argvus-web
-description: Development workflow for ARGVUS web projects, including Astro/Starlight documentation site under web/site-src.
+description: Development workflow for ARGVUS web projects, including Astro/Starlight documentation site under web/argvus-website.
 ---
 
 # ARGVUS Web Workflow
@@ -13,7 +13,7 @@ Use this skill for work under:
 
 Primary docs source:
 
-`web/site-src/`
+`web/argvus-website/`
 
 Inspect:
 

@@ -23,7 +23,7 @@ Web projects:
 
 Documentation website:
 
-- `web/site-src/`
+- `web/argvus-website/`
 
 Local Codex skills:
 
@@ -85,7 +85,7 @@ not sufficient.
 The same task must also evaluate and synchronize:
 
 - the ARGVUS landing page under `web/`;
-- the ARGVUS documentation under `web/site-src/`.
+- the ARGVUS documentation under `web/argvus-website/`.
 
 Theme creation normally requires these skills together:
 
@@ -226,7 +226,7 @@ when working with:
 - PKGBUILD;
 - Makefile;
 - `.pkg.tar.zst`;
-- `skeleton-rs-pkg`;
+- `skeleton-pkg-rust`;
 - `skeleton-pkg`;
 - packaging validation.
 
@@ -316,7 +316,7 @@ Use these only when the user asks for the corresponding step:
 - `argvus-general-commit`: commit every project under `de/` that has changes.
 - `argvus-update-documentation`: update the documentation of modified projects.
 - `argvus-dont-do-it`: restrictions (no commit, push, build, `git reset` or
-  documentation changes under `web/site-src`).
+  documentation changes under `web/argvus-website`).
 
 Multiple skills may apply to the same task.
 
@@ -431,7 +431,7 @@ Any user-facing change made under:
 
 must be evaluated for corresponding documentation changes under:
 
-`web/site-src/`
+`web/argvus-website/`
 
 This applies to:
 
@@ -459,7 +459,7 @@ user explicitly asks to modify implementation only.
 After modifying a project under `de/`:
 
 1. determine whether the change affects public/user/developer documentation;
-2. locate the relevant documentation under `web/site-src/`;
+2. locate the relevant documentation under `web/argvus-website/`;
 3. update existing documentation or create the necessary section/page;
 4. update internal cross-links/navigation when needed;
 5. validate the documentation site.
@@ -554,7 +554,7 @@ Do not create modal complexity when a dedicated page is clearer.
 
 Do not casually alter packaging structure.
 
-For Rust projects based on `skeleton-rs-pkg`:
+For Rust projects based on `skeleton-pkg-rust`:
 
 - preserve skeleton conventions;
 - preserve Makefile behavior unless explicitly asked to change it;
@@ -604,7 +604,7 @@ Do not run irrelevant expensive validation across all repositories by default.
 Validate affected repositories and direct consumers.
 
 When a task modifies `de/` and requires documentation synchronization, also validate
-the affected documentation under `web/site-src/`.
+the affected documentation under `web/argvus-website/`.
 
 A development task is not complete if the implementation changed documented
 behavior but the relevant documentation was left stale.

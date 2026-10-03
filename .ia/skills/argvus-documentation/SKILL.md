@@ -16,14 +16,14 @@ Source repositories:
 
 Documentation website:
 
-`web/site-src/`
+`web/argvus-website/`
 
 ## Automatic documentation follow-up
 
 This skill may be invoked as a follow-up to any implementation task under `de/`.
 
 When another ARGVUS skill changes behavior under `de/`, inspect the change and
-update the corresponding documentation under `web/site-src/` before the overall
+update the corresponding documentation under `web/argvus-website/` before the overall
 task is considered complete.
 
 The documentation update should describe the final implementation, not the original
@@ -100,7 +100,7 @@ repositories.
 
 ## Phase 4 — Existing documentation audit
 
-Compare the implementation with `web/site-src/`.
+Compare the implementation with `web/argvus-website/`.
 
 Classify documentation findings as:
 
