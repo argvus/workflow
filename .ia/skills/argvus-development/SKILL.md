@@ -167,10 +167,10 @@ Every implementation change under `de/` must include a documentation impact chec
 Before completing the task:
 
 1. identify whether the implementation changed user-visible or contributor-visible behavior;
-2. inspect the relevant documentation under `web/argvus-website/`;
+2. inspect the relevant documentation in the modified project's `docs/` folder (for example `de/<project>/docs/`);
 3. update it when necessary;
 4. use the `argvus-documentation` skill for documentation work;
-5. validate the documentation site when files were changed.
+5. validate the documentation when files were changed, using the checks defined by the project.
 
 Examples that require documentation review:
 

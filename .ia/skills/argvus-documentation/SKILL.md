@@ -1,6 +1,6 @@
 ---
 name: argvus-documentation
-description: Analyze ARGVUS source repositories and audit, create, or update the Astro/Starlight documentation so it accurately reflects the current implementation.
+description: Analyze ARGVUS source repositories and audit, create, or update each project's own `docs/` folder so it accurately reflects the current implementation.
 ---
 
 # ARGVUS Documentation Workflow
@@ -14,17 +14,31 @@ Source repositories:
 
 `de/*`
 
-Documentation website:
+Documentation location:
 
-`web/argvus-website/`
+Documentation lives inside each project, in its own `docs/` folder:
+
+`<group>/<project>/docs/`
+
+Examples:
+
+- `de/argvus-hyprland/docs/`
+- `de/argvus-control-center/docs/`
+
+The documentation that must be updated is always the `docs/` folder of the
+project being worked on, never a central site. `web/argvus-website/` no longer
+holds project documentation.
+
+If a project has no `docs/` folder yet, create it following the conventions of
+sibling projects' `docs/` folders.
 
 ## Automatic documentation follow-up
 
 This skill may be invoked as a follow-up to any implementation task under `de/`.
 
 When another ARGVUS skill changes behavior under `de/`, inspect the change and
-update the corresponding documentation under `web/argvus-website/` before the overall
-task is considered complete.
+update the corresponding documentation in the changed project's `docs/` folder
+(for example `de/<project>/docs/`) before the overall task is considered complete.
 
 The documentation update should describe the final implementation, not the original
 task specification.
@@ -44,15 +58,13 @@ as appropriate.
 
 ## Phase 1 — Documentation architecture
 
-Inspect the existing documentation website before changing anything.
+Inspect the existing `docs/` folder of each relevant project before changing anything.
 
 Determine:
 
 - existing content hierarchy;
-- Astro/Starlight configuration;
-- sidebar/navigation organization;
-- content collections;
-- reusable components;
+- file formats and any documentation tooling/configuration present in `docs/`;
+- index/navigation files;
 - documentation conventions;
 - existing categories;
 - duplicated or obsolete sections.
@@ -100,7 +112,7 @@ repositories.
 
 ## Phase 4 — Existing documentation audit
 
-Compare the implementation with `web/argvus-website/`.
+Compare the implementation with the project's `docs/` folder.
 
 Classify documentation findings as:
 
@@ -140,14 +152,14 @@ Do not make speculative changes.
 
 When instructed to implement:
 
-- modify only documentation/site files unless otherwise requested;
-- follow existing Starlight conventions;
+- modify only the `docs/` folder of the affected project(s) unless otherwise requested;
+- follow the conventions already used in that `docs/` folder;
 - preserve good existing documentation;
 - replace stale information with verified information;
 - prefer feature-oriented documentation;
 - use code blocks only where they improve understanding;
 - add relevant cross-links;
-- keep terminology consistent throughout the site.
+- keep terminology consistent across all projects' `docs/` folders.
 
 ## Phase 7 — Verification
 
@@ -156,8 +168,7 @@ After edits:
 - search documentation for stale project names;
 - search for obsolete commands and paths discovered during audit;
 - check internal links;
-- run project validation;
-- run the site build.
+- run the project's validation (`make check`) and any documentation checks it defines.
 
 Fix errors caused by the documentation changes.
 

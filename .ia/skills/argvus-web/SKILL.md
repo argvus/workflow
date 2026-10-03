@@ -1,6 +1,6 @@
 ---
 name: argvus-web
-description: Development workflow for ARGVUS web projects, including Astro/Starlight documentation site under web/argvus-website.
+description: Development workflow for ARGVUS web projects under web/ (website, landing page, logo, extras). Project documentation does NOT live here; it lives in each project's docs/ folder.
 ---
 
 # ARGVUS Web Workflow
@@ -9,24 +9,28 @@ Use this skill for work under:
 
 `web/`
 
-## Documentation site
+## Website
 
-Primary docs source:
+Primary website source:
 
 `web/argvus-website/`
+
+Project documentation is NOT maintained in the website anymore. Each project keeps
+its own documentation in its `docs/` folder (for example
+`de/argvus-hyprland/docs/`). Do not add, edit, or look for project documentation
+under `web/argvus-website/`.
 
 Inspect:
 
 - package.json;
-- Astro config;
-- Starlight config;
-- content collections;
+- framework/build config;
+- pages and content;
 - navigation;
 - reusable components.
 
 ## Preserve existing architecture
 
-Do not redesign the site globally for a localized documentation task.
+Do not redesign the site globally for a localized task.
 
 Follow current conventions unless there is a concrete UX or maintenance issue.
 
@@ -51,9 +55,9 @@ when available.
 
 ## Documentation interaction
 
-When content accuracy depends on ARGVUS implementation, also use:
-
-`argvus-documentation`.
+When a task also requires documentation, use `argvus-documentation`. That
+documentation is written in the `docs/` folder of the affected project, not in
+`web/`.
 
 ## Assets
 
@@ -63,9 +67,12 @@ Use actual assets or mark missing visuals clearly.
 
 ## Links
 
-Prefer internal site links for ARGVUS docs.
+Prefer internal site links.
 
 Fix broken routes introduced by changes.
+
+When linking to project documentation, follow how the website currently references
+each project's `docs/` folder; do not recreate docs pages inside the website.
 
 ## Final report
 

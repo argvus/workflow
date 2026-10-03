@@ -5,7 +5,7 @@ ARGVUS is a modular Hyprland and Wayland desktop environment for Arch Linux. It 
 # ARGVUS Workspace
 
 This workspace contains the source repositories of the ARGVUS desktop,
-its supporting packages, and the source code of the ARGVUS website/documentation.
+its supporting packages, and the source code of the ARGVUS website.
 
 ## Workspace root
 
@@ -21,9 +21,15 @@ Web projects:
 
 - `web/`
 
-Documentation website:
+Website:
 
 - `web/argvus-website/`
+
+Documentation:
+
+- Each project keeps its own documentation in its `docs/` folder
+  (`<group>/<project>/docs/`, for example `de/argvus-hyprland/docs/`).
+- Documentation is NOT kept in `web/argvus-website/`.
 
 Local Codex skills:
 
@@ -85,7 +91,7 @@ not sufficient.
 The same task must also evaluate and synchronize:
 
 - the ARGVUS landing page under `web/`;
-- the ARGVUS documentation under `web/argvus-website/`.
+- the ARGVUS documentation in the `docs/` folder of each affected project.
 
 Theme creation normally requires these skills together:
 
@@ -301,7 +307,7 @@ for work under:
 
 `web/`
 
-including Astro/Starlight and other web projects.
+including the website and other web projects (not project documentation, which lives in each project's `docs/`).
 
 ### Finishing and commit skills
 
@@ -323,7 +329,7 @@ Use these only when the user asks for the corresponding step:
 - `argvus-general-commit`: commit every project under `de/` that has changes.
 - `argvus-update-documentation`: update the documentation of modified projects.
 - `argvus-dont-do-it`: restrictions (no commit, push, build, `git reset` or
-  documentation changes under `web/argvus-website`).
+  documentation changes in any project's `docs/` folder).
 
 Multiple skills may apply to the same task.
 
@@ -436,9 +442,10 @@ Any user-facing change made under:
 
 `de/`
 
-must be evaluated for corresponding documentation changes under:
+must be evaluated for corresponding documentation changes in:
 
-`web/argvus-website/`
+the `docs/` folder of the project that was modified (for example a change in
+`de/argvus-hyprland` must update `de/argvus-hyprland/docs/`).
 
 This applies to:
 
@@ -466,10 +473,10 @@ user explicitly asks to modify implementation only.
 After modifying a project under `de/`:
 
 1. determine whether the change affects public/user/developer documentation;
-2. locate the relevant documentation under `web/argvus-website/`;
+2. locate the relevant documentation in the modified project's `docs/` folder;
 3. update existing documentation or create the necessary section/page;
 4. update internal cross-links/navigation when needed;
-5. validate the documentation site.
+5. validate the documentation using the checks the project defines.
 
 Do not create documentation for purely internal changes that have no meaningful
 user-facing or contributor-facing impact.
@@ -611,7 +618,7 @@ Do not run irrelevant expensive validation across all repositories by default.
 Validate affected repositories and direct consumers.
 
 When a task modifies `de/` and requires documentation synchronization, also validate
-the affected documentation under `web/argvus-website/`.
+the affected documentation in each modified project's `docs/` folder.
 
 A development task is not complete if the implementation changed documented
 behavior but the relevant documentation was left stale.

@@ -95,9 +95,11 @@ Web projects:
 
 `/home/boss/Projects/github/organizations/argvus/web/`
 
-Documentation site:
+Documentation:
 
-`/home/boss/Projects/github/organizations/argvus/web/argvus-website/`
+Lives in each project's own `docs/` folder, for example
+`/home/boss/Projects/github/organizations/argvus/de/<project>/docs/`.
+`web/argvus-website/` no longer holds project documentation.
 
 ---
 
@@ -340,11 +342,17 @@ theme gallery. Instead, document why no landing-page file needed modification.
 
 # 9. Documentation synchronization
 
-Every new official ARGVUS theme must be reflected in the documentation under:
+Every new official ARGVUS theme must be reflected in the `docs/` folder of each
+affected project under `de/` (for example the project that owns the theme
+registry, and the Control Center project if its Appearance > Themes page is
+documented there):
 
-`/home/boss/Projects/github/organizations/argvus/web/argvus-website/`
+`/home/boss/Projects/github/organizations/argvus/de/<project>/docs/`
 
-Find the current theme/appearance documentation from the source tree.
+Do not write theme documentation to `web/argvus-website/`.
+
+Find the current theme/appearance documentation from the `docs/` folders of the
+affected projects.
 
 Do not assume page names from memory.
 
@@ -368,8 +376,8 @@ existing documentation pattern.
 Update navigation/cross-links only when the current information architecture
 requires it.
 
-Do not create duplicate documentation pages when an existing themes page is the
-correct location.
+Do not create duplicate documentation pages when an existing themes page in a
+project's `docs/` is the correct location.
 
 ---
 
@@ -443,10 +451,10 @@ git diff --check
 Validate the website using the commands defined by its current package/project
 configuration.
 
-Validate documentation under `web/argvus-website/` using its actual Astro/Starlight
-commands.
+Validate the documentation changed in each project's `docs/` folder using the
+checks that project defines (for example `make check`).
 
-Do not guess package-manager commands. Inspect the current project first.
+Do not guess commands. Inspect the current project first.
 
 If full visual verification requires a running Hyprland session or real logout/login,
 report that as manual validation.
@@ -536,7 +544,7 @@ de/
 +
 web landing page
 +
-web/argvus-website documentation
+per-project docs/ documentation
 ```
 
 in the same implementation task.

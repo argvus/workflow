@@ -10,3 +10,7 @@ Use this skill to finish:
 - Update or implement the changes in the documentation (if necessary).
 
 Only for the modified projects.
+
+Documentation lives in each project's own `docs/` folder (for example
+`de/argvus-hyprland/docs/`). Update only the `docs/` of the projects that were
+modified. Do not use `web/argvus-website/` for project documentation.
