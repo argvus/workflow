@@ -14,3 +14,7 @@ feat: new implementation for X
 
 - A new implementation was created for X...
 ```
+
+RULE: Never add `Co-Authored-By:` (or any other attribution/trailer line, such as
+`Signed-off-by:` or "Generated with ...") to commit messages. The message must contain
+only the Conventional Commit subject and description.

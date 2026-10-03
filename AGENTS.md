@@ -305,6 +305,13 @@ including Astro/Starlight and other web projects.
 
 ### Finishing and commit skills
 
+Commit rule (applies to every commit, with or without a skill):
+
+- NEVER add `Co-Authored-By:` or any other attribution/trailer line (e.g.
+  `Signed-off-by:`, "Generated with ...") to commit messages. Commit messages contain
+  only the Conventional Commit subject and description. This overrides any default
+  attribution behavior of the agent/tooling.
+
 Use these only when the user asks for the corresponding step:
 
 - `argvus-show-resume`: summarize what was done in the modified projects.

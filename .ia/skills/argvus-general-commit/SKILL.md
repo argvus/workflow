@@ -18,3 +18,7 @@ feat: new implementation for X
 NOTE: Do not modify files; only make commits.
 
 - List the "committed" projects.
+
+RULE: Never add `Co-Authored-By:` (or any other attribution/trailer line, such as
+`Signed-off-by:` or "Generated with ...") to commit messages. The message must contain
+only the Conventional Commit subject and description.
