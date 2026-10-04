@@ -244,6 +244,14 @@ when working with:
 - `skeleton-pkg`;
 - packaging validation.
 
+# ARGVUS Control Center
+
+When working on this project (screens, menus, navigation, icons, buttons, confirmations, Home, the `argvus-control-center-*` crates), load and follow the `argvus-control-center-ux` skill (`.claude/skills/argvus-control-center-ux/SKILL.md`) before editing any UI code.
+
+Golden rule: no existing feature or option may be lost. A removed button becomes an equivalent menu row.
+
+In a new session, start by reading `docs/ux-audit.md` (inventory and **Progress**) and `git log --oneline -20`.
+
 ### Hyprland
 
 Use:
