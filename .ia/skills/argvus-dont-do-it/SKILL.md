@@ -11,4 +11,3 @@ Use this skill to finish:
 - DO NOT push.
 - DO NOT build. Use the project's `make check`.
 - DO NOT use `git reset`.
-- DO NOT alter the documentation in any project's `docs/` folder.
