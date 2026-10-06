@@ -29,7 +29,7 @@ argvus-theme-gruvbox-light argvus-theme-hackerman argvus-theme-monokai-dark
 argvus-theme-one-dark argvus-theme-one-light argvus-theme-rose-pine
 argvus-theme-silver-dark argvus-theme-slate-dark argvus-theme-solarized-light
 argvus-theme-solitude argvus-theme-sunset argvus-theme-tokyo-night argvus-theme-universe
-argvus-themes argvus-games'}
+argvus-themes argvus-games argvus-branding'}
 PROJECTS_WEB=${PROJECTS_WEB:-'argvus-logo argvus-extras argvus-website packages'}
 PROJECTS_MISC=${PROJECTS_MISC:-'TODO feedback pubkey'}
 
