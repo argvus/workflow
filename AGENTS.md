@@ -254,6 +254,8 @@ In a new session, start by reading `docs/ux-audit.md` (inventory and **Progress*
 
 ### Hyprland
 
+Hyprland version to be worked on: `Hyprland 0.56.2`
+
 Use:
 
 `.agents/skills/argvus-hyprland/SKILL.md`
