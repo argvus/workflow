@@ -346,8 +346,7 @@ Use these only when the user asks for the corresponding step:
 - `argvus-do-it-commits`: create the commits for the changes.
 - `argvus-general-commit`: commit every project under `de/` that has changes.
 - `argvus-update-documentation`: update the documentation of modified projects.
-- `argvus-dont-do-it`: restrictions (no commit, push, build, `git reset` or
-  documentation changes in any project's `docs/` folder).
+- `argvus-dont-do-it`: restrictions (no commit, push, build, `git reset`).
 
 Multiple skills may apply to the same task.
 

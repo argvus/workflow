@@ -1,6 +1,6 @@
 ---
 name: argvus-dont-do-it
-description: Restrictions: do not commit, push, build, run `git reset`, or change documentation in any project's `docs/` folder. Use when the user wants changes made without those actions.
+description: Restrictions: do not commit, push, build, run `git reset`. Use when the user wants changes made without those actions.
 ---
 
 # ARGVUS Don't do it Workflow
