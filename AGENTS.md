@@ -246,11 +246,11 @@ when working with:
 
 # ARGVUS Control Center
 
-When working on this project (screens, menus, navigation, icons, buttons, confirmations, Home, the `argvus-control-center-*` crates), load and follow the `argvus-control-center-ux` skill (`.claude/skills/argvus-control-center-ux/SKILL.md`) before editing any UI code.
+If the project is `de/argvus-control-center`, do the following:
 
-Golden rule: no existing feature or option may be lost. A removed button becomes an equivalent menu row.
+Before writing code, also read `README.md`, `DEVELOPMENT.md`, `rustfmt.toml` and `clippy.toml`. Show the plan and wait for approval before migrating any screen.
 
-In a new session, start by reading `docs/ux-audit.md` (inventory and **Progress**) and `git log --oneline -20`.
+IMPORTANT: Always update the documentation (`de/argvus-control-center/docs/`) when finishing the code implementation.
 
 ### Hyprland
 
