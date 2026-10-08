@@ -2,15 +2,17 @@
 description: Analyze git changes and create a commit
 ---
 
-Target repository: `$ARGUMENTS`
+Target repository: `de/$ARGUMENTS`
 
 Use this directory as the working directory for all Git commands.
 
 Before doing anything else:
 
-1. Verify that `$ARGUMENTS` exists.
+1. Verify that `de/$ARGUMENTS` exists.
 2. Verify that it is a Git repository.
 3. Do not operate on the parent repository.
+4. Do not undo changes.
+5. Do not leave the current branch.
 
 Review the current git changes.
 
@@ -31,7 +33,7 @@ If yes:
 1. Create a concise commit message.
 2. Stage the appropriate files.
 3. Review the staged diff.
-4. Create the commit.
+4. Create the commit (Always use the current branch).
 
 If there are unrelated changes, do not commit them together.
 Explain how they should be separated first.
