@@ -1,5 +1,5 @@
 ---
-name: argvus-do-it-commits
+name: argvus-do-it-commit
 description: Commit the changes.
 ---
 
