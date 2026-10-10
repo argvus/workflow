@@ -218,6 +218,8 @@ Use:
 
 for documentation auditing, creation, reorganization, or updates.
 
+NOTE: The project's `README.md` must also be updated if it contains obsolete information.
+
 ### General ARGVUS implementation
 
 Use:
@@ -518,6 +520,8 @@ Examples of changes that normally require documentation updates:
 
 The source implementation remains authoritative. Documentation must describe the
 final implementation produced by the task.
+
+The project's `README.md` must also be updated if it contains obsolete information.
 
 ## User configuration contract
 
