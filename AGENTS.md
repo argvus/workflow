@@ -274,6 +274,12 @@ when a task involves:
 - dispatchers;
 - reload behavior.
 
+## Shortcuts / Cheatsheets
+
+Whenever you add new shortcuts and/or update them, also update the corresponding helpers list (text files) at:
+
+`de/argvus-hyprland/src/usr/share/argvus/hyprland/docs/cheatsheets/`
+
 ### User interfaces
 
 Use:
@@ -345,7 +351,7 @@ Use these only when the user asks for the corresponding step:
   command for them.
 - `argvus-suggestion-commits`: display (never run) Conventional Commit messages
   for each modified project.
-- `argvus-do-it-commits`: create the commits for the changes.
+- `argvus-dot-it-commits`: create the commits for the changes.
 - `argvus-general-commit`: commit every project under `de/` that has changes.
 - `argvus-update-documentation`: update the documentation of modified projects.
 - `argvus-dont-do-it`: restrictions (no commit, push, build, `git reset`).

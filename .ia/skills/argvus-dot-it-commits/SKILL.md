@@ -1,9 +1,9 @@
 ---
-name: argvus-do-it-commits
+name: argvus-dot-it-commits
 description: Create the commits for the changes made, using Conventional Commits. Use when the user explicitly asks to commit.
 ---
 
-# ARGVUS Do it commits Workflow
+# ARGVUS Dot It Commits Workflow
 
 Use this skill to finish:
 
@@ -15,6 +15,9 @@ feat: new implementation for X
 - A new implementation was created for X...
 ```
 
-RULE: Never add `Co-Authored-By:` (or any other attribution/trailer line, such as
-`Signed-off-by:` or "Generated with ...") to commit messages. The message must contain
-only the Conventional Commit subject and description.
+RULE:
+
+- Do not switch branches.
+- IMPORTANT: Do not alter the files.
+- Even if there are changes that weren't part of this session, commit them anyway.
+- Never add `Co-Authored-By:` (or any other attribution/trailer line, such as `Signed-off-by:` or "Generated with ...") to commit messages. The message must contain only the Conventional Commit subject and description.

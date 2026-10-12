@@ -15,7 +15,7 @@ ROOT_MISC=${ROOT_MISC:-misc}
 
 PROJECTS_DE=${PROJECTS_DE:-'argvus argvus-appearance argvus-app-profiles
 argvus-control-panel argvus-widget-telemetry argvus-display
-argvus-firewall argvus-icons argvus-lock
+argvus-firewall argvus-icons argvus-lock argvus-config
 argvus-network argvus-notifications argvus-portal
 argvus-power argvus-terminal argvus-system-monitor
 argvus-session argvus-hyprland argvus-launcher
