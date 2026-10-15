@@ -274,6 +274,21 @@ when a task involves:
 - dispatchers;
 - reload behavior.
 
+### Navigation paths (breadcrumbs)
+
+Use:
+
+`.ai/skills/argvus-control-center-paths/SKILL.md`
+
+whenever a feature is added, moved or renamed in `argvus-control-center`, or a page
+is reached from a new entry point (Home, global search, CLI route, or a link inside
+another page).
+
+Every page must show the Home card it is listed under, for example
+`Control Center > Desktop & Input > Displays`. Check the breadcrumb, the search
+entry, the CLI route and the data loading of the page, and update the breadcrumb
+tests and the documentation in the same change.
+
 ## Shortcuts / Cheatsheets
 
 Whenever you add new shortcuts and/or update them, also update the corresponding helpers list (text files) at:

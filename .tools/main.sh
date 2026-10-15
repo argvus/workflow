@@ -25,7 +25,7 @@ argvus-accounts argvus-control-center argvus-taskbar-calendar
 argvus-loading-theme argvus-tui argvus-game-snake argvus-theme-catppuccin-latte
 argvus-theme-dracula argvus-theme-everforest-light
 argvus-theme-github-light argvus-theme-gruvbox-dark argvus-theme-gruvbox-high-dark
-argvus-theme-gruvbox-light argvus-theme-hackerman argvus-theme-monokai-dark
+argvus-theme-gruvbox-light argvus-theme-matrix argvus-theme-monokai-dark
 argvus-theme-one-dark argvus-theme-one-light argvus-theme-rose-pine
 argvus-theme-silver-dark argvus-theme-slate-dark argvus-theme-solarized-light
 argvus-theme-solitude argvus-theme-sunset argvus-theme-tokyo-night argvus-theme-universe
@@ -61,10 +61,10 @@ use_claude() {
 	elif [ -e .claude/commands ]; then
 		die ".claude/commands already exists and is not a symlink"
 	else
-		ln -s ../.ia/skills .claude/skills
-		echo "==> Created .claude/skills -> ../.ia/skills"
-		ln -s ../.ia/commands .claude/commands
-		echo "==> Created .claude/commands -> ../.ia/commands"
+		ln -s ../.ai/skills .claude/skills
+		echo "==> Created .claude/skills -> ../.ai/skills"
+		ln -s ../.ai/commands .claude/commands
+		echo "==> Created .claude/commands -> ../.ai/commands"
 	fi
 }
 
@@ -81,10 +81,10 @@ use_opencode() {
 	elif [ -e .opencode/commands ]; then
 		die ".opencode/commands already exists and is not a symlink"
 	else
-		ln -s ../.ia/skills .agents/skills
-		echo "==> Created .agents/skills -> ../.ia/skills"
-		ln -s ../.ia/commands .opencode/commands
-		echo "==> Created .opencode/commands -> ../.ia/commands"
+		ln -s ../.ai/skills .agents/skills
+		echo "==> Created .agents/skills -> ../.ai/skills"
+		ln -s ../.ai/commands .opencode/commands
+		echo "==> Created .opencode/commands -> ../.ai/commands"
 	fi
 }
 
@@ -101,10 +101,10 @@ use_codex() {
 	elif [ -e .codex/commands ]; then
 		die ".codex/commands already exists and is not a symlink"
 	else
-		ln -s ../.ia/skills .agents/skills
-		echo "==> Created .agents/skills -> ../.ia/skills"
-		ln -s ../.ia/commands .codex/prompts
-		echo "==> Created .codex/prompts -> ../.ia/commands"
+		ln -s ../.ai/skills .agents/skills
+		echo "==> Created .agents/skills -> ../.ai/skills"
+		ln -s ../.ai/commands .codex/prompts
+		echo "==> Created .codex/prompts -> ../.ai/commands"
 	fi
 }
 
