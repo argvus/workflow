@@ -40,4 +40,4 @@ Explain how they should be separated first.
 
 Never invent changes that are not present in git diff.
 
-Never add `Co-Authored-By:` (or any other attribution/trailer line) to the commit message.
+Do not add any trailer to the commit message: no `Co-Authored-By:`, `Signed-off-by:`, `Reviewed-by:`, "Generated with ..." or any other `Key: value` attribution line.
