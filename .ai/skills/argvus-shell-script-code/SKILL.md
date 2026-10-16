@@ -529,40 +529,6 @@ fi
 make -j"$JOBS" BUILD_TYPE="$BUILD_TYPE" all || exit 1
 ```
 
-### Symlink Management (ARGVUS Workflow)
-
-```bash
-#!/bin/sh
-# Link Claude skill into .claude/skills
-
-link_skill() {
-    local skill_name="$1"
-    local source="$PWD/.agents/skills/$skill_name"
-    local target="$HOME/.claude/skills/current/$skill_name"
-
-    if [ ! -d "$source" ]; then
-        echo "ERROR: Skill directory not found: $source" >&2
-        return 1
-    fi
-
-    # Remove old link if it exists
-    rm -f "$target"
-
-    # Create new link
-    if ! ln -s "$source" "$target" 2>/dev/null; then
-        # On some systems, try relative symlink
-        local rel_source
-        rel_source=$(realpath --relative-to="$(dirname "$target")" "$source")
-        ln -s "$rel_source" "$target" || return 1
-    fi
-
-    echo "Linked: $target -> $source"
-    return 0
-}
-
-link_skill "$1" || exit 1
-```
-
 ### Collecting Build Artifacts
 
 ```bash
