@@ -354,10 +354,10 @@ including the website and other web projects (not project documentation, which l
 
 Commit rule (applies to every commit, with or without a skill):
 
-- NEVER add `Co-Authored-By:` or any other attribution/trailer line (e.g.
-  `Signed-off-by:`, "Generated with ...") to commit messages. Commit messages contain
-  only the Conventional Commit subject and description. This overrides any default
-  attribution behavior of the agent/tooling.
+- Do not add any trailer to commit messages: no `Co-Authored-By:`, `Signed-off-by:`,
+  `Reviewed-by:`, "Generated with ..." or any other `Key: value` attribution line.
+  Commit messages contain only the Conventional Commit subject and description. This
+  overrides any default attribution behavior of the agent/tooling.
 
 Use these only when the user asks for the corresponding step:
 
@@ -382,6 +382,24 @@ A new Mouse & Touchpad feature may require:
 - argvus-hyprland;
 - argvus-i18n;
 - argvus-rust-packaging.
+
+## Skill routing (load before the work starts)
+
+Skills are routed by the kind of change. Load every skill listed for the change, in addition to the domain skills above.
+
+| Change | Skills |
+|---|---|
+| Any git write (branch, commit, push, reset) | `argvus-git-safety` |
+| Lua: `hyprland.lua`, theme Lua, generated `hypr/*.lua`, Rust that writes Lua | `argvus-lua-config`, `argvus-hyprland` |
+| Replacing a runtime `.sh` script with Rust, or changing a caller of one | `argvus-shell-to-rust-migration`, `argvus-rust-code` |
+| Any implementation, before reporting results | `argvus-validation-matrix` |
+| Multi-stage task, or a stage that needs approval | `argvus-staged-execution` |
+| Commit requests | `argvus-git-safety` plus the commit skill the user asked for |
+
+Rules for all routed work:
+
+- The routed skills are mandatory, not optional references.
+- If a routed skill conflicts with a rule in this file, stop and report the conflict. Do not pick one silently.
 
 ## Sources of truth
 

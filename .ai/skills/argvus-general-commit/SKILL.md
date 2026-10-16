@@ -19,6 +19,6 @@ NOTE: Do not modify files; only make commits.
 
 - List the "committed" projects.
 
-RULE: Never add `Co-Authored-By:` (or any other attribution/trailer line, such as
-`Signed-off-by:` or "Generated with ...") to commit messages. The message must contain
-only the Conventional Commit subject and description.
+RULE: Do not add any trailer to commit messages: no `Co-Authored-By:`, `Signed-off-by:`,
+`Reviewed-by:`, "Generated with ..." or any other `Key: value` attribution line. The message
+must contain only the Conventional Commit subject and description.

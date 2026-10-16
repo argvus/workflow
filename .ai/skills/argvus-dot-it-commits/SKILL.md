@@ -17,7 +17,7 @@ feat: new implementation for X
 
 RULE:
 
-- Do not switch branches.
+- Do not switch or create branches on your own. Switch or create a branch only when the prompt explicitly asks for it.
 - IMPORTANT: Do not alter the files.
 - Even if there are changes that weren't part of this session, commit them anyway.
-- Never add `Co-Authored-By:` (or any other attribution/trailer line, such as `Signed-off-by:` or "Generated with ...") to commit messages. The message must contain only the Conventional Commit subject and description.
+- Do not add any trailer to commit messages: no `Co-Authored-By:`, `Signed-off-by:`, `Reviewed-by:`, "Generated with ..." or any other `Key: value` attribution line. The message must contain only the Conventional Commit subject and description.
