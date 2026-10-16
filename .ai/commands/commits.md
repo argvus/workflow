@@ -1,6 +1,9 @@
 ---
 description: Analyze git changes and create a commit
+disable-model-invocation: true
 ---
+
+User-invoked only. Agents must not load or follow this command on their own.
 
 Target repository: `de/$ARGUMENTS`
 

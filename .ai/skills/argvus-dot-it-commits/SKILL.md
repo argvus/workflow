@@ -1,7 +1,10 @@
 ---
 name: argvus-dot-it-commits
 description: Create the commits for the changes made, using Conventional Commits. Use when the user explicitly asks to commit.
+disable-model-invocation: true
 ---
+
+User-invoked only. Agents must not load or follow this skill on their own.
 
 # ARGVUS Dot It Commits Workflow
 

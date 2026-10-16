@@ -1,6 +1,9 @@
 ---
 description: Create commits for ALL changes made across ALL projects, following the Conventional Commits standard. Perform this action when the user explicitly requests that the commit be made.
+disable-model-invocation: true
 ---
+
+User-invoked only. Agents must not load or follow this command on their own.
 
 # ARGVUS Recursive Commits
 

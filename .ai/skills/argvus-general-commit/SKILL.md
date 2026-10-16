@@ -1,7 +1,10 @@
 ---
 name: argvus-general-commit
 description: Commit to all ARGVUS projects.
+disable-model-invocation: true
 ---
+
+User-invoked only. Agents must not load or follow this skill on their own.
 
 # ARGVUS General Commit Workflow
 

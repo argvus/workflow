@@ -41,7 +41,7 @@ Documentation:
 
 Local Codex skills:
 
-- `.agents/skills/`
+- `.ai/skills/`
 
 ## ARGVUS project model
 
@@ -74,13 +74,13 @@ Do not assume the repository where the UI lives owns the complete feature.
 
 ## Skills
 
-Use the local skills under `.agents/skills/` according to the task.
+Use the local skills under `.ai/skills/` according to the task.
 
 ### Theme creation
 
 Use:
 
-`.agents/skills/argvus-theme-creation/SKILL.md`
+`.ai/skills/argvus-theme-creation/SKILL.md`
 
 whenever creating or adding a new official ARGVUS theme.
 
@@ -162,7 +162,7 @@ task unless the user explicitly asks to modify the desktop implementation only.
 
 Use:
 
-`.agents/skills/argvus-rust-code/SKILL.md`
+`.ai/skills/argvus-rust-code/SKILL.md`
 
 whenever the affected project contains Rust code.
 
@@ -202,7 +202,7 @@ Do not assume a project is Rust based only on its name. Detect it from its actua
 repository contents.
 
 `argvus-rust-code` also ships extended references under
-`.agents/skills/argvus-rust-code/references/` (idioms and types, documentation,
+`.ai/skills/argvus-rust-code/references/` (idioms and types, documentation,
 modularization, tooling and testing, CLI and TUI). Load only the ones that match
 the task.
 
@@ -214,7 +214,7 @@ For user-facing changes under `de/`, documentation synchronization is part of th
 
 Use:
 
-`.agents/skills/argvus-documentation/SKILL.md`
+`.ai/skills/argvus-documentation/SKILL.md`
 
 for documentation auditing, creation, reorganization, or updates.
 
@@ -224,7 +224,7 @@ NOTE: The project's `README.md` must also be updated if it contains obsolete inf
 
 Use:
 
-`.agents/skills/argvus-development/SKILL.md`
+`.ai/skills/argvus-development/SKILL.md`
 
 for implementation, refactoring, debugging, repository integration, and general
 changes under `de/`.
@@ -233,7 +233,7 @@ changes under `de/`.
 
 Use:
 
-`.agents/skills/argvus-rust-packaging/SKILL.md`
+`.ai/skills/argvus-rust-packaging/SKILL.md`
 
 when working with:
 
@@ -260,7 +260,7 @@ Hyprland version to be worked on: `Hyprland 0.56.2`
 
 Use:
 
-`.agents/skills/argvus-hyprland/SKILL.md`
+`.ai/skills/argvus-hyprland/SKILL.md`
 
 when a task involves:
 
@@ -299,7 +299,7 @@ Whenever you add new shortcuts and/or update them, also update the corresponding
 
 Use:
 
-`.agents/skills/argvus-ui/SKILL.md`
+`.ai/skills/argvus-ui/SKILL.md`
 
 when changing:
 
@@ -316,7 +316,7 @@ when changing:
 
 Use:
 
-`.agents/skills/argvus-i18n/SKILL.md`
+`.ai/skills/argvus-i18n/SKILL.md`
 
 when adding or changing user-visible strings or translation behavior.
 
@@ -324,7 +324,7 @@ when adding or changing user-visible strings or translation behavior.
 
 Use:
 
-`.agents/skills/argvus-session-integration/SKILL.md`
+`.ai/skills/argvus-session-integration/SKILL.md`
 
 for:
 
@@ -342,7 +342,7 @@ for:
 
 Use:
 
-`.agents/skills/argvus-web/SKILL.md`
+`.ai/skills/argvus-web/SKILL.md`
 
 for work under:
 
@@ -359,6 +359,16 @@ Commit rule (applies to every commit, with or without a skill):
   Commit messages contain only the Conventional Commit subject and description. This
   overrides any default attribution behavior of the agent/tooling.
 
+The commit commands and skills below are user-invoked entry points. Agents must not
+load or follow them on their own. Git rules still apply through `argvus-git-safety`
+whenever a git write is requested.
+
+- `commits` command (`.ai/commands/commits.md`): analyze and commit one project.
+- `commits-recursive` command (`.ai/commands/commits-recursive.md`): commit every
+  project under `de/` that has changes.
+- `argvus-dot-it-commits` skill: create the commits for the changes (user-invoked only).
+- `argvus-general-commit` skill: commit every project under `de/` (user-invoked only).
+
 Use these only when the user asks for the corresponding step:
 
 - `argvus-show-resume`: summarize what was done in the modified projects.
@@ -366,8 +376,6 @@ Use these only when the user asks for the corresponding step:
   command for them.
 - `argvus-suggestion-commits`: display (never run) Conventional Commit messages
   for each modified project.
-- `argvus-dot-it-commits`: create the commits for the changes.
-- `argvus-general-commit`: commit every project under `de/` that has changes.
 - `argvus-update-documentation`: update the documentation of modified projects.
 - `argvus-dont-do-it`: restrictions (no commit, push, build, `git reset`).
 
@@ -394,7 +402,7 @@ Skills are routed by the kind of change. Load every skill listed for the change,
 | Replacing a runtime `.sh` script with Rust, or changing a caller of one | `argvus-shell-to-rust-migration`, `argvus-rust-code` |
 | Any implementation, before reporting results | `argvus-validation-matrix` |
 | Multi-stage task, or a stage that needs approval | `argvus-staged-execution` |
-| Commit requests | `argvus-git-safety` plus the commit skill the user asked for |
+| Commit requests (user-invoked) | `argvus-git-safety`. The commit commands and skills are not routed; agents never load them on their own |
 
 Rules for all routed work:
 

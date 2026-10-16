@@ -63,19 +63,19 @@ Load and follow the relevant skills in addition to this one.
 
 For theme creation, normally use:
 
-- `.agents/skills/argvus-development/SKILL.md`
-- `.agents/skills/argvus-theme-creation/SKILL.md`
-- `.agents/skills/argvus-web/SKILL.md`
-- `.agents/skills/argvus-documentation/SKILL.md`
+- `.ai/skills/argvus-development/SKILL.md`
+- `.ai/skills/argvus-theme-creation/SKILL.md`
+- `.ai/skills/argvus-web/SKILL.md`
+- `.ai/skills/argvus-documentation/SKILL.md`
 
 Also use when applicable:
 
-- `.agents/skills/argvus-rust-code/SKILL.md`
-- `.agents/skills/argvus-ui/SKILL.md`
-- `.agents/skills/argvus-i18n/SKILL.md`
-- `.agents/skills/argvus-session-integration/SKILL.md`
-- `.agents/skills/argvus-rust-packaging/SKILL.md`
-- `.agents/skills/argvus-hyprland/SKILL.md`
+- `.ai/skills/argvus-rust-code/SKILL.md`
+- `.ai/skills/argvus-ui/SKILL.md`
+- `.ai/skills/argvus-i18n/SKILL.md`
+- `.ai/skills/argvus-session-integration/SKILL.md`
+- `.ai/skills/argvus-rust-packaging/SKILL.md`
+- `.ai/skills/argvus-hyprland/SKILL.md`
 
 If a repository touched by the task contains Rust, `argvus-rust-code` is mandatory.
 
