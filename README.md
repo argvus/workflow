@@ -64,14 +64,31 @@ Run the following command from the workflow root to prepare the checkout for Cla
 make claude
 ```
 
-This creates the `CLAUDE.md` link to `AGENTS.md` and the `.claude/skills` link to `.agents/skills`. Run it after cloning this workflow repository and before using Claude in the workspace. The command is intended for the workflow root; the cloned child repositories remain independent projects.
+This creates the `CLAUDE.md` link to `AGENTS.md`, the `.claude/skills` link to `../.ai/skills`, and the `.claude/commands` link to `../.ai/commands`. Run it after cloning this workflow repository and before using Claude in the workspace. The command is intended for the workflow root; the cloned child repositories remain independent projects.
+
+## Codex and OpenCode compatibility
+
+The workflow also supports Codex and OpenCode. The canonical folders are `.ai/skills/` and `.ai/commands/`. Each command prepares the workspace root for its tool with the links that tool reads:
+
+```sh
+make codex
+make opencode
+```
+
+- `make codex` creates `.agents/skills` (linked to `../.ai/skills`) and `.codex/prompts` (linked to `../.ai/commands`).
+- `make opencode` creates `.agents/skills` (linked to `../.ai/skills`) and `.opencode/commands` (linked to `../.ai/commands`).
+
+Each link is checked on its own. Re-running a command completes any missing link and never overwrites a path that is not a symlink. Commands and skills are shared by all three tools from `.ai/`.
 
 ## Commands
 
 | Command | Purpose |
 | --- | --- |
 | `make help` | Show the available commands and configurable variables. |
-| `make claude` | Prepare the workflow checkout for Claude by creating the `CLAUDE.md` and `.claude/skills` links. |
+| `make claude` | Prepare the workspace for Claude: creates the `CLAUDE.md` link to `AGENTS.md`, and the `.claude/skills` and `.claude/commands` links. |
+| `make codex` | Prepare the workspace for Codex: creates the `.agents/skills` and `.codex/prompts` links. |
+| `make opencode` | Prepare the workspace for OpenCode: creates the `.agents/skills` and `.opencode/commands` links. |
+| `make status` | Show the Git status of every cloned desktop project under `de/`. |
 | `make clone full` | Clone all projects into `de/`, `web/`, and `misc/`. Existing directories are left untouched. |
 | `make clone de <project> [project...]` | Clone selected desktop-environment projects into `de/`. |
 | `make clone web <project> [project...]` | Clone selected web projects into `web/`. |

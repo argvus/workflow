@@ -40,72 +40,45 @@ die() {
 	exit 1
 }
 
-use_claude() {
-	if [ -L CLAUDE.md ]; then
-		echo "==> CLAUDE.md already configured"
-	elif [ -e CLAUDE.md ]; then
-		die "CLAUDE.md already exists and is not a symlink"
+# Create one symlink, or confirm it already points to the expected target.
+# Each link is checked on its own, so a partially configured checkout is completed.
+ensure_link() {
+	link=$1
+	target=$2
+
+	if [ -L "$link" ]; then
+		current=$(readlink "$link")
+		if [ "$current" = "$target" ]; then
+			echo "==> $link already configured"
+		else
+			die "$link points to $current, expected $target"
+		fi
+	elif [ -e "$link" ]; then
+		die "$link already exists and is not a symlink"
 	else
-		ln -s AGENTS.md CLAUDE.md
-		echo "==> Created CLAUDE.md -> AGENTS.md"
+		ln -s "$target" "$link"
+		echo "==> Created $link -> $target"
 	fi
+}
+
+use_claude() {
+	ensure_link CLAUDE.md AGENTS.md
 
 	mkdir -p .claude
-
-	if [ -L .claude/skills ]; then
-		echo "==> .claude/skills already configured"
-	elif [ -e .claude/skills ]; then
-		die ".claude/skills already exists and is not a symlink"
-	elif [ -L .claude/commands ]; then
-		echo "==> .claude/commands already configured"
-	elif [ -e .claude/commands ]; then
-		die ".claude/commands already exists and is not a symlink"
-	else
-		ln -s ../.ai/skills .claude/skills
-		echo "==> Created .claude/skills -> ../.ai/skills"
-		ln -s ../.ai/commands .claude/commands
-		echo "==> Created .claude/commands -> ../.ai/commands"
-	fi
+	ensure_link .claude/skills ../.ai/skills
+	ensure_link .claude/commands ../.ai/commands
 }
 
 use_opencode() {
-
 	mkdir -p .opencode .agents
-
-	if [ -L .agents/skills ]; then
-		echo "==> .agents/skills already configured"
-	elif [ -e .agents/skills ]; then
-		die ".agents/skills already exists and is not a symlink"
-	elif [ -L .opencode/commands ]; then
-		echo "==> .opencode/commands already configured"
-	elif [ -e .opencode/commands ]; then
-		die ".opencode/commands already exists and is not a symlink"
-	else
-		ln -s ../.ai/skills .agents/skills
-		echo "==> Created .agents/skills -> ../.ai/skills"
-		ln -s ../.ai/commands .opencode/commands
-		echo "==> Created .opencode/commands -> ../.ai/commands"
-	fi
+	ensure_link .agents/skills ../.ai/skills
+	ensure_link .opencode/commands ../.ai/commands
 }
 
 use_codex() {
-
 	mkdir -p .codex .agents
-
-	if [ -L .agents/skills ]; then
-		echo "==> .agents/skills already configured"
-	elif [ -L .codex/prompts ]; then
-		echo "==> .codex/prompts already configured"
-	elif [ -e .agents/skills ]; then
-		die ".agents/skills already exists and is not a symlink"
-	elif [ -e .codex/commands ]; then
-		die ".codex/commands already exists and is not a symlink"
-	else
-		ln -s ../.ai/skills .agents/skills
-		echo "==> Created .agents/skills -> ../.ai/skills"
-		ln -s ../.ai/commands .codex/prompts
-		echo "==> Created .codex/prompts -> ../.ai/commands"
-	fi
+	ensure_link .agents/skills ../.ai/skills
+	ensure_link .codex/prompts ../.ai/commands
 }
 
 clone_projects() {
