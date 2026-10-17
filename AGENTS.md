@@ -1,5 +1,9 @@
 # ARGVUS
 
+## Load first
+
+Before any task, load `.ai/skills/argvus-requirements/SKILL.md`. It lists the tools and versions of the development environment (Rust, Wayland, Hyprland, Vala, Waybar, Quickshell, Rofi and others). If it is missing or outdated, the user regenerates it with `make requirements`; do not edit it by hand.
+
 ARGVUS is a modular Hyprland and Wayland desktop environment for Arch Linux. It is an integrated collection of packages rather than one monolithic application: the session, compositor, shell surfaces, settings applications, providers and visual assets work together through shared state and explicit runtime contracts.
 
 ## Technology stack
@@ -256,8 +260,6 @@ IMPORTANT: Always update the documentation (`de/argvus-control-center/docs/`) wh
 
 ### Hyprland
 
-Hyprland version to be worked on: `Hyprland 0.56.2`
-
 Use:
 
 `.ai/skills/argvus-hyprland/SKILL.md`
@@ -400,6 +402,7 @@ Skills are routed by the kind of change. Load every skill listed for the change,
 | Any git write (branch, commit, push, reset) | `argvus-git-safety` |
 | Lua: `hyprland.lua`, theme Lua, generated `hypr/*.lua`, Rust that writes Lua | `argvus-lua-config`, `argvus-hyprland` |
 | Replacing a runtime `.sh` script with Rust, or changing a caller of one | `argvus-shell-to-rust-migration`, `argvus-rust-code` |
+| Any task (always, first) | `argvus-requirements` |
 | Any implementation, before reporting results | `argvus-validation-matrix` |
 | Multi-stage task, or a stage that needs approval | `argvus-staged-execution` |
 | Commit requests (user-invoked) | `argvus-git-safety`. The commit commands and skills are not routed; agents never load them on their own |

@@ -106,6 +106,7 @@ Each link is checked on its own. Re-running a command completes any missing link
 | `make push:<branch>` | Push the selected branch of each desktop checkout to the configured `lab` and `gitea` remotes when available. Branch names may contain `/`. |
 | `make checkout:<branch>` | Run `git checkout <branch>` in every desktop checkout under `de/`. The branch must already exist locally. |
 | `make switch:<branch>` | Run `git switch -c <branch>` in every desktop checkout under `de/`. |
+| `make requirements` | Create or recreate `.ai/skills/argvus-requirements/SKILL.md`, listing each tool in `REQUIREMENTS` with its installed version. Missing tools are listed as `not installed`. |
 
 `collect` reports and skips projects without an output directory or package. `install` fails when no `argvus-*.pkg.tar.zst` archive is available.
 
@@ -121,6 +122,8 @@ Variables can be overridden on the command line without editing the Makefile:
 | `ZIP_DIR` | `zips` | Local directory used to write project source archives. |
 | `ZIP_EXCLUDES` | `.git/* target/* tmp/* build/*` | Space-separated patterns passed to `zip -x`. |
 | `REMOTES_PUSH` | `lab gitea` | Git remotes used by `push:<branch>`. |
+| `REQUIREMENTS` | `rust wayland hyprland hypridle vala waybar quickshell rofi` | Space-separated tools listed by `make requirements`. |
+| `SKILLS_DIR` | `.ai/skills` | Skills directory that `make requirements` writes into. |
 
 Examples:
 
@@ -136,6 +139,8 @@ make collect BUILD_DIR=/tmp/argvus-builds
 make install full BUILD_DIR=/tmp/argvus-builds
 make zip-all
 make zip-all ZIP_DIR=/tmp/argvus-zips
+make requirements
+make requirements REQUIREMENTS='rust hyprland'
 ```
 
 ## Source archives

@@ -4,7 +4,7 @@ TOOLS_MAIN := .tools/main.sh
 
 .PHONY: help clone build \
 	collect install zip zip-all status \
-	clean\:dist clean\:all claude
+	clean\:dist clean\:all claude requirements
 
 help:
 	@sh "$(TOOLS_MAIN)" help
@@ -44,6 +44,9 @@ claude:
 
 opencode:
 	@sh "$(TOOLS_MAIN)" opencode
+
+requirements:
+	@sh "$(TOOLS_MAIN)" requirements
 
 # GNU Make treats positional modes and project names as independent goals.
 # Consume only those supplied alongside clone, build, install, or zip.
