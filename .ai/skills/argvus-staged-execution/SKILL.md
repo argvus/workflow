@@ -18,7 +18,7 @@ A large change is delivered as a sequence of independent stages. Each stage must
 
 Stop and ask for approval before:
 
-- migrating any `argvus-control-center` screen (show the plan first, as required by `CLAUDE.md`);
+- migrating any Control Center screen in `de/argvus/crates/argvus-control-center*` (show the plan first, as required by `AGENTS.md`);
 - changing a skeleton packaging structure, the Makefile or the PKGBUILD of a skeleton project;
 - centralizing shared packaging files across repositories;
 - deleting a script that other repositories still call and that was not in the approved list;

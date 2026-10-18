@@ -15,7 +15,7 @@ Search the whole workspace under `de/` before touching the script. Include:
 
 - Lua: `exec_cmd`, `_sh(...)`, `io.popen` in `argvus-hyprland`;
 - systemd units: `ExecStart`, `ExecReload`, `ExecStartPre` in `*.service`;
-- waybar: `exec`, `on-click`, `on-scroll` in `argvus-waybar` and `argvus-widget-telemetry`;
+- waybar: `exec`, `on-click`, `on-scroll` in `argvus-waybar` and `argvus widget-telemetry`;
 - Rust callers in `argvus-control-center*` (for example `theme-switch`, `sessionctl`, `effects-toggle`, `monitor-switch`);
 - other shell callers, keybind helpers, `.install` hooks and Makefiles;
 - tests in `tests/`.

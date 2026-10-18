@@ -12,11 +12,13 @@ Validate what the change touches and its direct consumers. Do not run expensive 
 | Change | Minimum validation |
 |---|---|
 | Rust code (`.rs`, `Cargo.toml`) | `cargo fmt --all -- --check`, `cargo check --workspace`, `cargo clippy`, `cargo test` in the affected repository |
+| Rust under `de/argvus/crates` | `make validate` in `de/argvus` (fmt, clippy `-D warnings`, workspace tests), or `cargo test -p <crate>` for a narrow change; see `argvus-monorepo` |
+| Rust under `de/argvus/greeter` | the same checks run inside `de/argvus/greeter` (it is a separate Cargo workspace, excluded from the root) |
 | Rust with `cargo build` or packaging impact | add `cargo build --release` and the `make` target the project defines |
 | Lua (`hyprland.lua`, theme Lua, generated `hypr/*.lua`) | `luac -p` on each file, `stylua --check` |
 | Shell still in use (packaging, hooks, install) | `sh -n`, `shellcheck` |
 | PKGBUILD, Makefile, `.install` | `makepkg --printsrcinfo`, `make validate` (or the project's equivalent) |
-| Strings visible to users | `argvus-i18n validate` in the affected repository |
+| Strings visible to users | `argvus i18n validate` in the affected repository |
 | Any change in `de/` with documentation impact | validate the affected `docs/` according to the project's own checks |
 | Systemd units or session behavior | `systemctl --user daemon-reload`, check the unit state; report if no real session was available |
 | Hyprland behavior (binds, reload, monitors) | reload the configuration and test the bind or action in a real session; report if not possible |

@@ -47,6 +47,116 @@ Local Codex skills:
 
 - `.ai/skills/`
 
+## Autonomous Execution Policy
+
+The implementation plan has already been reviewed and approved by the user.
+Execute the entire plan autonomously, from the current checkpoint to final
+completion, without requesting approval for individual phases or routine
+technical decisions.
+
+### Mandatory execution rules
+
+1. Read the complete implementation plan and identify the current checkpoint,
+   remaining phases, dependencies, acceptance criteria, and decision gates.
+
+2. Treat all phases and decision gates in the approved plan as authorized
+   implementation steps, not as reasons to stop and ask for permission.
+
+3. Do not ask the user whether to:
+   - Start the next phase.
+   - Continue implementation.
+   - Apply a technical recommendation.
+   - Resolve an ordinary architectural decision.
+   - Perform routine testing, validation, refactoring, or optimization.
+   - Remove temporary files created exclusively by this task when they are
+     confirmed to be safe to remove.
+
+4. Make reasonable technical decisions independently. Evaluate alternatives
+   against the approved requirements, measured performance, maintainability,
+   compatibility, security, and project conventions.
+
+5. When evidence supports a clear recommendation, choose the best option and
+   proceed. Do not present a recommendation and then wait for the user to
+   choose between alternatives unless the decision genuinely requires user
+   input.
+
+6. If a decision is uncertain, investigate further, inspect the codebase,
+   run experiments, compare alternatives, and select the safest reasonable
+   option. Document the rationale and continue.
+
+7. If a planned operation has significant risks, inspect the repository state,
+   create appropriate backups or checkpoints, and verify recovery options
+   before proceeding. Never overwrite unrelated user changes.
+
+8. Do not invent missing requirements. Infer implementation details from the
+   approved plan, existing code, project documentation, tests, and established
+   conventions.
+
+### Phase execution loop
+
+For every phase:
+
+1. Read the relevant source code and documentation.
+2. Identify the phase's concrete deliverables and acceptance criteria.
+3. Implement all required changes.
+4. Run formatting, compilation, tests, static analysis, and relevant
+   integration checks.
+5. Fix regressions and repeat validation until the criteria are met or a
+   genuine blocker is established.
+6. Review the diff for unintended changes, compatibility issues, and
+   incomplete work.
+7. Update the implementation plan or progress tracker with verified results.
+8. Immediately proceed to the next phase without asking for permission.
+
+Do not stop after analysis, benchmarking, recommendations, or a completed
+phase. Analysis is an intermediate step; implementation and validation
+must follow.
+
+### Handling blockers
+
+A blocker is a condition that genuinely prevents safe or correct progress,
+such as unavailable credentials, an external dependency that cannot be
+obtained, contradictory requirements that cannot be reconciled, or an
+irreversible operation whose consequences are not covered by the approved plan.
+
+Missing preferences and routine engineering choices are not blockers.
+
+When a blocker occurs:
+
+- Complete every independent task that can safely proceed.
+- Investigate possible workarounds before stopping.
+- Record the exact blocker, evidence, attempted solutions, and affected tasks.
+- Ask only the smallest necessary question if user input is unavoidable.
+
+Never claim a phase is complete unless its acceptance criteria have been
+verified.
+
+### Communication policy
+
+- Do not announce that you are waiting for approval to continue.
+- Do not ask "Should I proceed?", "Can I start the next phase?", or equivalent
+  questions when the plan already authorizes the work.
+- Do not stop merely to report intermediate findings or recommendations.
+- Provide concise progress updates only when useful.
+- Continue working after progress updates.
+- Deliver a final report only after all feasible phases are completed or a
+  genuine blocker prevents further progress.
+
+### Completion criteria
+
+The task is complete only when all feasible phases in the approved plan have
+been implemented, validated, and reviewed.
+
+Before finishing:
+
+- Verify the final repository state and all relevant tests.
+- List completed phases and their validation results.
+- Identify any remaining limitations or genuinely blocked tasks.
+- Summarize important architectural decisions and their rationale.
+
+Do not treat a plan, recommendation, benchmark, or partial implementation
+as the final deliverable.
+
 ## ARGVUS project model
 
 ARGVUS is composed of many integrated repositories.
@@ -252,11 +362,11 @@ when working with:
 
 # ARGVUS Control Center
 
-If the project is `de/argvus-control-center`, do the following:
+If the change touches the Control Center (`de/argvus/crates/argvus-control-center*`, including the `argvus-control-center-*` settings and page crates), do the following:
 
 Before writing code, also read `README.md`, `DEVELOPMENT.md`, `rustfmt.toml` and `clippy.toml`. Show the plan and wait for approval before migrating any screen.
 
-IMPORTANT: Always update the documentation (`de/argvus-control-center/docs/`) when finishing the code implementation.
+IMPORTANT: Always update the documentation (`de/argvus/docs/`, Control Center pages) when finishing the code implementation.
 
 ### Hyprland
 
@@ -403,6 +513,7 @@ Skills are routed by the kind of change. Load every skill listed for the change,
 | Lua: `hyprland.lua`, theme Lua, generated `hypr/*.lua`, Rust that writes Lua | `argvus-lua-config`, `argvus-hyprland` |
 | Replacing a runtime `.sh` script with Rust, or changing a caller of one | `argvus-shell-to-rust-migration`, `argvus-rust-code` |
 | Any task (always, first) | `argvus-requirements` |
+| Any change under `de/argvus`, or any reference to a retired repository name | `argvus-monorepo`, `argvus-rust-code` |
 | Any implementation, before reporting results | `argvus-validation-matrix` |
 | Multi-stage task, or a stage that needs approval | `argvus-staged-execution` |
 | Commit requests (user-invoked) | `argvus-git-safety`. The commit commands and skills are not routed; agents never load them on their own |
@@ -437,34 +548,31 @@ Repositories under `de/` include:
 - `argvus-accounts`
 - `argvus-app-profiles`
 - `argvus-appearance`
-- `argvus-control-center`
+- `argvus-boot-splash`
+- `argvus-branding`
 - `argvus-control-panel`
 - `argvus-display`
 - `argvus-firewall`
 - `argvus-fonts`
-- `argvus-game-snake`
-- `argvus-greeter`
+- `argvus-game-snake` (independent and optional)
+- `argvus-games`
 - `argvus-hyprland`
-- `argvus-i18n`
 - `argvus-icons`
 - `argvus-launcher`
 - `argvus-lock`
-- `argvus-network`
 - `argvus-notifications`
 - `argvus-portal`
 - `argvus-power`
-- `argvus-removable-devices`
 - `argvus-session`
-- `argvus-splash`
-- `argvus-system-monitor`
 - `argvus-taskbar`
-- `argvus-taskbar-calendar`
-- `argvus-terminal`
-- `argvus-theme-splash`
-- `argvus-tui`
 - `argvus-wallpapers`
 - `argvus-waybar`
-- `argvus-widget-telemetry`
+- `argvus-theme-*` (official theme packages, for example `argvus-theme-sunset`)
+
+The Rust code of the retired repositories (`argvus-config`, `argvus-i18n`, `argvus-control-center`
+and the others) now lives in the `de/argvus` workspace; the originals are in `de/retiree` and
+must not be modified. The full mapping from each retired name to its crate or subcommand is in
+the `argvus-monorepo` skill. The greeter source lives in `de/argvus/greeter`.
 
 Do not assume all repositories use the same language or build system.
 
@@ -641,6 +749,10 @@ Do not create modal complexity when a dedicated page is clearer.
 
 ## Packaging
 
+`argvus` is the master package (pkgbase `argvus`, split packages `argvus`, `argvus-gtk`
+and `argvus-greeter`). Every component package depends on `argvus`, so no install order is
+required. `argvus-game-snake` is optional and independent.
+
 Do not casually alter packaging structure.
 
 For Rust projects based on `skeleton-pkg-rust`:
@@ -703,7 +815,7 @@ Common checks may include:
 - `sh -n`
 - `shellcheck`
 - `qmllint`
-- `argvus-i18n validate`
+- `argvus i18n validate`
 - `git diff --check`
 
 Do not run irrelevant expensive validation across all repositories by default.
@@ -739,3 +851,36 @@ When implementation under `de/` changed documented behavior, also report:
 - documentation pages updated;
 - documentation pages created;
 - documentation intentionally left unchanged and why.
+
+## Consolidated Rust workspace
+
+The Rust commands of the desktop live in one Cargo workspace at `de/argvus`
+(`crates/<package>`). The public entry point is `argvus <command>`, served by
+`crates/argvus-cli`.
+
+- In-process commands (library `run_command`, no separate executable): `config`,
+  `i18n`, `keys` (and `gpg`), `projects`, `terminal`, `system-monitor`, `network`
+  (and `bluetooth`), `widget-telemetry block|toggle`, `tui-terminal`, `setup`.
+- GTK 4 helpers, installed by `argvus-gtk` in `/usr/lib/argvus/commands`:
+  `control-center`, `taskbar-calendar`, `removable-devices`. The loading overlay
+  stays at `/usr/lib/argvus/loading-theme/splash`.
+- Retired repositories were moved to `de/retiree` and must not be modified:
+  `argvus-config`, `argvus-i18n`, `argvus-keys`, `argvus-projects`, `argvus-terminal`,
+  `argvus-system-monitor`, `argvus-network`, `argvus-widget-telemetry`, `argvus-tui`,
+  `argvus-control-center`, `argvus-taskbar-calendar`, `argvus-removable-devices`,
+  `argvus-loading-theme`, `argvus-themes`.
+- `argvus-greeter` is a separate binary inside the workspace (`de/argvus/greeter`, its own
+  Cargo workspace, package `argvus-greeter`). It runs before login.
+- Repositories that keep their own executables: `argvus-accounts` (runs as root through
+  `pkexec`), `argvus-firewall`.
+- Do not add a new `/usr/lib/argvus/commands/argvus-*` path in callers; use
+  `argvus <command>`. Keep callers that must start before PATH is set (systemd
+  units) on `/usr/bin/argvus <command>`.
+
+The skill `argvus-monorepo` holds the full map (crates, dispatch model, retired-repository
+table). Load it for any Rust change under `de/argvus` or any reference to a retired name.
+
+Documentation of the consolidated components is kept in `de/argvus/docs/`:
+user pages under `docs/{en,pt-br}/components/<repository>/`, developer notes under
+`docs/internal/<repository>/`. Do not create a `docs/` folder in a retired
+repository; change the page in the workspace instead.

@@ -7,6 +7,15 @@ description: UX/UI workflow for ARGVUS TUI, Quickshell/QML, Waybar, taskbar, con
 
 Use this skill for user-facing UI changes.
 
+## Locations
+
+- Control Center: `de/argvus/crates/argvus-control-center` (app, Home, hyprland glue) and the
+  page crates `de/argvus/crates/argvus-control-center-*`. Its shared core is
+  `argvus-control-center-core`. Launched through `argvus control-center`.
+- Taskbar calendar and removable devices: `de/argvus/crates/argvus-taskbar-calendar` and
+  `de/argvus/crates/argvus-removable-devices` (GTK 4 helpers, see `argvus-monorepo`).
+- Repository names and dispatch: `argvus-monorepo`.
+
 ## UI families
 
 ARGVUS contains multiple UI technologies:

@@ -10,7 +10,7 @@ Use this skill to finish:
 - List the projects that have been modified and provide the `build` command for the Makefile—for example:
 
 ```sh
-make build argvus argvus-hyprland argvus-control-center
+make build argvus argvus-hyprland
 ```
 
 Only for the modified projects.

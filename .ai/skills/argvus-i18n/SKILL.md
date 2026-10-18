@@ -100,7 +100,7 @@ For new visible strings:
 
 Use:
 
-`argvus-i18n validate`
+`argvus i18n validate`
 
 and repository-specific tests.
 

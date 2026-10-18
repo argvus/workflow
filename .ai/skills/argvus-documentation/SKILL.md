@@ -23,7 +23,7 @@ Documentation lives inside each project, in its own `docs/` folder:
 Examples:
 
 - `de/argvus-hyprland/docs/`
-- `de/argvus-control-center/docs/`
+- `de/argvus/docs/`
 
 The documentation that must be updated is always the `docs/` folder of the
 project being worked on, never a central site. `web/argvus-website/` no longer
@@ -104,8 +104,8 @@ Map user-facing features to all repositories involved.
 For example:
 
 Control Center feature
-→ argvus-control-center
-→ argvus-i18n
+→ argvus (`de/argvus/crates/argvus-control-center*`, docs in `de/argvus/docs/en/components/argvus-control-center`)
+→ argvus (`de/argvus/crates/argvus-i18n`, `argvus i18n`)
 → argvus-hyprland
 → argvus-session
 → another provider if applicable.

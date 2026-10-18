@@ -27,7 +27,7 @@ Recurring bugs this skill prevents:
 
 ## Source of truth
 
-1. The Home catalog: `de/argvus-control-center/crates/argvus-control-center/src/home/catalog.rs`.
+1. The Home catalog: `de/argvus/crates/argvus-control-center/src/home/catalog.rs`.
    It decides which card lists each destination, its label key and its icon.
 2. The card title keys (`control_center.card_*`, plus `control_center.appearance` and
    `control_center.preferences`). The breadcrumb must use the same key the card header uses.
@@ -112,7 +112,7 @@ Do all of these in the same change. Each step is a path that users reach.
    string must have a matching arm.
 5. **CLI route** (`cli.rs`): the route must open the same page as the Home entry.
    If the page changes, update the route and say so in the documentation.
-6. **i18n** (`argvus-i18n/locales/en-US` and `pt-BR`): add every label and card key.
+6. **i18n** (`de/argvus/locales/en-US` and `pt-BR`): add every label and card key.
    Both files must have the same key set.
 7. **Data loading**: a page opened from any entry point must load its data on open.
    For administration pages, call `App::enter_page` / `Administration::ensure_loaded`
@@ -137,10 +137,10 @@ Do all of these in the same change. Each step is a path that users reach.
 
 ## Validation
 
-Run from `de/argvus-control-center`:
+Run from `de/argvus`:
 
 ```sh
-ARGVUS_I18N_DIR=<workspace>/de/argvus-i18n/locales cargo test --workspace --no-fail-fast
+ARGVUS_I18N_DIR=<workspace>/de/argvus/locales cargo test --workspace --no-fail-fast
 cargo clippy --workspace --all-targets --all-features -- -D warnings
 cargo fmt --all -- --check
 ```

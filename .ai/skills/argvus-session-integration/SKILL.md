@@ -12,9 +12,8 @@ Use this skill when changes involve startup/session lifecycle or system services
 Commonly involved:
 
 - argvus-session
-- argvus-greeter
-- argvus-theme-splash
-- argvus-splash
+- argvus (greeter in `greeter/`, package `argvus-greeter`; loading overlay in `crates/argvus-loading-theme`; see `argvus-monorepo`)
+- argvus-boot-splash
 - argvus-lock
 - argvus-control-panel
 - argvus-taskbar

@@ -276,18 +276,16 @@ Audit and validate every current consumer discovered in the source tree.
 
 Common consumers include:
 
-- `argvus-control-center`;
+- `de/argvus` workspace crates (`crates/argvus-control-center*`, `crates/argvus-config`, `crates/argvus-widget-telemetry-*`, `crates/argvus-terminal`); see `argvus-monorepo`;
 - `argvus-control-panel`;
 - `argvus-taskbar`;
-- `argvus-widget-telemetry`;
 - `argvus-launcher`;
 - `argvus-notifications`;
-- `argvus-terminal`;
 - `argvus-lock`;
-- `argvus-greeter`;
+- `de/argvus/greeter` (greeter binary, third split package of `argvus`);
 - `argvus-session`;
 - `argvus-hyprland`;
-- splash/theme-splash;
+- `argvus-boot-splash` and the loading overlay (`crates/argvus-loading-theme`);
 - other UI components discovered during the audit.
 
 Do not assume this list is exhaustive.
@@ -446,7 +444,7 @@ luac -p
 sh -n
 shellcheck
 qmllint
-argvus-i18n validate
+argvus i18n validate
 git diff --check
 ```
 
@@ -554,3 +552,10 @@ in the same implementation task.
 Only leave the landing page or documentation unchanged when inspection proves no
 update is needed, and explain that decision in the final report.
 
+
+## Master package and component packages
+
+- `argvus` is the master package (pkgbase `argvus`, split packages `argvus`, `argvus-gtk`, `argvus-greeter`). Every component package depends on `argvus`, so no install order is required.
+- Desktop tools are in-process subcommands of `argvus` (`argvus config`, `argvus i18n`, `argvus terminal`, `argvus system-monitor`, and so on). Do not add a separate executable for a function the `argvus` CLI already provides, and do not call the retired binaries (`argvus-config`, `argvus-i18n`, `argvus-terminal`).
+- `argvus-pwvucontrol` and `argvus-snappy-switcher` were removed. Do not reintroduce them or ship their configuration.
+- Theme packages are generated from `misc/argvus-skeleton-theme`; the shared-file drift check is `tools/sh/sync-skeleton.sh --check`.

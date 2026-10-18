@@ -10,7 +10,7 @@ Lua in ARGVUS is the Hyprland configuration layer. It is not a general scripting
 ## Source of truth
 
 - Source: `de/argvus-hyprland/src/usr/share/argvus/hyprland/config/hyprland.lua`, the theme files and `keybindings.json`.
-- Generated (derived, never edit by hand): `$ARGVUS_CONFIG_HOME/argvus/data/generated/hypr/*.lua`, written by `de/argvus-config/src/project.rs`.
+- Generated (derived, never edit by hand): `$ARGVUS_CONFIG_HOME/argvus/data/generated/hypr/*.lua`, written by `de/argvus/crates/argvus-config/src/project.rs`.
 - User overrides: `data/hypr/{monitors,rules,bindings,user}.lua`.
 - `keybindings.json` alone does not create a bind. The Lua bind must exist.
 
