@@ -13,23 +13,22 @@ ROOT_DE=${ROOT_DE:-de}
 ROOT_WEB=${ROOT_WEB:-web}
 ROOT_MISC=${ROOT_MISC:-misc}
 
-PROJECTS_DE=${PROJECTS_DE:-'argvus argvus-appearance argvus-app-profiles
-argvus-control-panel argvus-widget-telemetry argvus-display
-argvus-firewall argvus-icons argvus-lock argvus-config
-argvus-network argvus-notifications argvus-portal
-argvus-power argvus-terminal argvus-system-monitor
-argvus-session argvus-hyprland argvus-launcher
-argvus-taskbar argvus-i18n argvus-boot-splash argvus-fonts
-argvus-wallpapers argvus-removable-devices argvus-greeter
-argvus-accounts argvus-control-center argvus-taskbar-calendar
-argvus-loading-theme argvus-tui argvus-game-snake argvus-theme-catppuccin-latte
-argvus-theme-dracula argvus-theme-everforest-light
-argvus-theme-github-light argvus-theme-gruvbox-dark argvus-theme-gruvbox-high-dark
-argvus-theme-gruvbox-light argvus-theme-matrix argvus-theme-monokai-dark
-argvus-theme-one-dark argvus-theme-one-light argvus-theme-rose-pine
-argvus-theme-silver-dark argvus-theme-slate-dark argvus-theme-solarized-light
-argvus-theme-solitude argvus-theme-sunset argvus-theme-tokyo-night argvus-theme-universe
-argvus-themes argvus-games argvus-branding'}
+# argvus is the master package: every component depends on it, so no install
+# order is required. argvus-greeter is not listed; its source is argvus/greeter
+# and it is the third split package of the argvus PKGBUILD. Retired repositories
+# live in de/retiree and are not listed. argvus-game-snake is optional.
+PROJECTS_DE=${PROJECTS_DE:-'argvus argvus-accounts argvus-app-profiles
+argvus-appearance argvus-boot-splash argvus-branding argvus-control-panel
+argvus-display argvus-firewall argvus-fonts argvus-game-snake argvus-games
+argvus-hyprland argvus-icons argvus-launcher argvus-lock argvus-notifications
+argvus-portal argvus-power argvus-session argvus-taskbar argvus-wallpapers
+argvus-waybar argvus-theme-catppuccin-latte argvus-theme-dracula
+argvus-theme-everforest-light argvus-theme-github-light argvus-theme-gruvbox-dark
+argvus-theme-gruvbox-high-dark argvus-theme-gruvbox-light argvus-theme-matrix
+argvus-theme-monokai-dark argvus-theme-nord-light argvus-theme-one-dark
+argvus-theme-one-light argvus-theme-rose-pine argvus-theme-silver-dark
+argvus-theme-slate-dark argvus-theme-solarized-light argvus-theme-solitude
+argvus-theme-sunset argvus-theme-tokyo-night argvus-theme-universe'}
 PROJECTS_WEB=${PROJECTS_WEB:-'argvus-logo argvus-extras argvus-website packages'}
 PROJECTS_MISC=${PROJECTS_MISC:-'TODO feedback pubkey'}
 
