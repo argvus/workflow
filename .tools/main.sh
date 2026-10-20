@@ -14,9 +14,10 @@ ROOT_WEB=${ROOT_WEB:-web}
 ROOT_MISC=${ROOT_MISC:-misc}
 
 # argvus is the master package: every component depends on it, so no install
-# order is required. argvus-greeter is not listed; its source is argvus/greeter
-# and it is the third split package of the argvus PKGBUILD. Retired repositories
-# live in de/retiree and are not listed. argvus-game-snake is optional.
+# order is required. The login greeter is not a separate repository: its source
+# is argvus/crates/argvus-greeter and it ships inside the single argvus package.
+# Retired repositories live in de/retiree and are not listed. argvus-game-snake
+# is optional.
 PROJECTS_DE=${PROJECTS_DE:-'argvus argvus-accounts argvus-app-profiles
 argvus-appearance argvus-boot-splash argvus-branding argvus-control-panel
 argvus-display argvus-firewall argvus-fonts argvus-game-snake argvus-games
@@ -30,9 +31,9 @@ argvus-theme-one-light argvus-theme-rose-pine argvus-theme-silver-dark
 argvus-theme-slate-dark argvus-theme-solarized-light argvus-theme-solitude
 argvus-theme-sunset argvus-theme-tokyo-night argvus-theme-universe'}
 PROJECTS_WEB=${PROJECTS_WEB:-'argvus-logo argvus-extras argvus-website packages'}
-PROJECTS_MISC=${PROJECTS_MISC:-'TODO feedback pubkey'}
+PROJECTS_MISC=${PROJECTS_MISC:-'feedback pubkey argvus-skeleton-theme skeleton-pkg skeleton-pkg-rust workflow'}
 
-REQUIREMENTS=${REQUIREMENTS:-'rust wayland hyprland hypridle vala waybar quickshell rofi'}
+REQUIREMENTS=${REQUIREMENTS:-'rust wayland hyprland hypridle vala waybar quickshell rofi jq'}
 SKILLS_DIR=${SKILLS_DIR:-.ai/skills}
 
 MAKE_COMMAND=${MAKE:-make}
@@ -99,6 +100,7 @@ EOF
 
 	ensure_link .claude/skills ../.ai/skills
 	ensure_link .claude/commands ../.ai/commands
+	ensure_link .claude/hooks ../.ai/hooks
 }
 
 use_opencode() {
@@ -377,6 +379,9 @@ push_branch() {
 			for remote in $REMOTES_PUSH; do
 				if git -C "$project_dir" remote get-url "$remote" >/dev/null 2>&1; then
 					echo "==> Pushing $project_dir -> $remote/$branch..."
+					# Deliberate exception to the no-force-push rule: this target is
+					# run only by the human operator, never by an agent. The lease
+					# refuses the push if the remote moved since the last fetch.
 					git -C "$project_dir" push "--force-with-lease" "$remote" "$branch" || exit 1
 				else
 					echo "==> Skipping $project_dir; remote $remote not configured"

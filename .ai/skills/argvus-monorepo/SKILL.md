@@ -18,9 +18,9 @@ retired repository. The workspace `Cargo.toml` is the source of truth for member
   Put reusable logic in `-core` and keep the command crate thin.
 - Dispatcher: `crates/argvus-cli` (`main.rs`, `commands.rs`, `dispatch.rs`). Its public
   entry point is `argvus <command>`.
-- Greeter: `de/argvus/greeter`, its own Cargo workspace (`crates/main`, `crates/handoff`),
-  package `argvus-greeter`. It is excluded from the root workspace, so run its checks from
-  `greeter/`. It consumes `argvus-i18n-core`, `argvus-theme` and `argvus-tui` by path.
+- Greeter: `crates/argvus-greeter`, a member of the root workspace (built with
+  `cargo build --profile greeter`, output in `target/greeter/`). Its DRM handoff helper is
+  `crates/argvus-greeter-handoff`. Both are packaged inside the `argvus` package.
 - Docs: `de/argvus/docs/{en,pt-br}/components/<repository>/` for user pages and
   `de/argvus/docs/internal/<repository>/` for developer notes.
 
@@ -85,7 +85,7 @@ Repositories that keep their own executables and are not part of the workspace:
 
 - Workspace: `make validate` in `de/argvus` (fmt, clippy with `-D warnings`, tests). For
   a narrow change, `cargo test -p <crate>` plus `cargo clippy -p <crate>`.
-- Greeter: run the same checks inside `de/argvus/greeter`.
+- Greeter: covered by `make validate` in `de/argvus` like every other crate.
 - Packaging: `makepkg --printsrcinfo` in `de/argvus/packaging/arch/{ci,local}/PKGBUILD`. See
   `argvus-rust-packaging`.
 - Build disk pressure: `/tmp` can have a small quota; use

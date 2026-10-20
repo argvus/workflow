@@ -30,7 +30,7 @@ Running a clone target creates the following directories when needed:
 
 The desktop projects listed in `PROJECTS_DE` are the installable projects by default. A project is expected to provide a `build` target and to place its package in `build/dist/` (or in the directory configured through `PROJECTS_DE_DIST`).
 
-`argvus` is the master package. Its PKGBUILD (`pkgbase=argvus`) produces three split packages: `argvus`, `argvus-gtk` and `argvus-greeter`, whose source is `argvus/greeter`. Every other component package depends on `argvus`, so no install order is required. Retired repositories are kept in `de/retiree` and are not part of `PROJECTS_DE`. `argvus-game-snake` is independent and optional.
+`argvus` is the master package. Its PKGBUILD (`pkgbase=argvus`) produces a single package, `argvus`, which ships the CLI, the GTK helpers, the login greeter (source in `argvus/crates/argvus-greeter`) and the loading overlay. Every other component package depends on `argvus`, so no install order is required. Retired repositories are kept in `de/retiree` and are not part of `PROJECTS_DE`. `argvus-game-snake` is independent and optional.
 
 ## Requirements
 

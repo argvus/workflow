@@ -572,7 +572,7 @@ Repositories under `de/` include:
 The Rust code of the retired repositories (`argvus-config`, `argvus-i18n`, `argvus-control-center`
 and the others) now lives in the `de/argvus` workspace; the originals are in `de/retiree` and
 must not be modified. The full mapping from each retired name to its crate or subcommand is in
-the `argvus-monorepo` skill. The greeter source lives in `de/argvus/greeter`.
+the `argvus-monorepo` skill. The greeter source lives in `de/argvus/crates/argvus-greeter`.
 
 Do not assume all repositories use the same language or build system.
 
@@ -749,9 +749,10 @@ Do not create modal complexity when a dedicated page is clearer.
 
 ## Packaging
 
-`argvus` is the master package (pkgbase `argvus`, split packages `argvus`, `argvus-gtk`
-and `argvus-greeter`). Every component package depends on `argvus`, so no install order is
-required. `argvus-game-snake` is optional and independent.
+`argvus` is the master package and the only package built from `de/argvus` (pkgbase and
+package `argvus`). It ships the CLI, the GTK 4 helpers, the login greeter and the loading
+overlay. Every component package depends on `argvus`, so no install order is required.
+`argvus-game-snake` is optional and independent.
 
 Do not casually alter packaging structure.
 
@@ -794,6 +795,9 @@ Never:
 - force checkout;
 - rewrite history;
 - force push.
+
+The only exception is the `make push:<BRANCH>` target, which pushes with
+`--force-with-lease`. Only the human operator runs it; an agent never does.
 
 Do not commit unless explicitly instructed.
 
@@ -861,7 +865,7 @@ The Rust commands of the desktop live in one Cargo workspace at `de/argvus`
 - In-process commands (library `run_command`, no separate executable): `config`,
   `i18n`, `keys` (and `gpg`), `projects`, `terminal`, `system-monitor`, `network`
   (and `bluetooth`), `widget-telemetry block|toggle`, `tui-terminal`, `setup`.
-- GTK 4 helpers, installed by `argvus-gtk` in `/usr/lib/argvus/commands`:
+- GTK 4 helpers, installed by the `argvus` package in `/usr/lib/argvus/commands`:
   `control-center`, `taskbar-calendar`, `removable-devices`. The loading overlay
   stays at `/usr/lib/argvus/loading-theme/splash`.
 - Retired repositories were moved to `de/retiree` and must not be modified:
@@ -869,8 +873,9 @@ The Rust commands of the desktop live in one Cargo workspace at `de/argvus`
   `argvus-system-monitor`, `argvus-network`, `argvus-widget-telemetry`, `argvus-tui`,
   `argvus-control-center`, `argvus-taskbar-calendar`, `argvus-removable-devices`,
   `argvus-loading-theme`, `argvus-themes`.
-- `argvus-greeter` is a separate binary inside the workspace (`de/argvus/greeter`, its own
-  Cargo workspace, package `argvus-greeter`). It runs before login.
+- `argvus-greeter` is a member of the root workspace (`crates/argvus-greeter`, built with
+  `cargo build --profile greeter`, installed as `commands/greeter`). It runs before login.
+  Its DRM handoff helper `argvus-greeter-handoff` is installed at `greeter/handoff`.
 - Repositories that keep their own executables: `argvus-accounts` (runs as root through
   `pkexec`), `argvus-firewall`.
 - Do not add a new `/usr/lib/argvus/commands/argvus-*` path in callers; use

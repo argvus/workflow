@@ -138,7 +138,7 @@ Report:
 
 ## Master package and component packages
 
-- `argvus` is the master package (pkgbase `argvus`, split packages `argvus`, `argvus-gtk`, `argvus-greeter`). Every component package depends on `argvus`, so no install order is required.
+- `argvus` is the master package (pkgbase and package `argvus`: CLI, GTK helpers, login greeter and loading overlay). Every component package depends on `argvus`, so no install order is required.
 - Desktop tools are in-process subcommands of `argvus` (`argvus config`, `argvus i18n`, `argvus terminal`, `argvus system-monitor`, and so on). Do not add a separate executable for a function the `argvus` CLI already provides, and do not call the retired binaries (`argvus-config`, `argvus-i18n`, `argvus-terminal`).
 - `argvus-pwvucontrol` and `argvus-snappy-switcher` were removed. Do not reintroduce them or ship their configuration.
 - Theme packages are generated from `misc/argvus-skeleton-theme`; the shared-file drift check is `tools/sh/sync-skeleton.sh --check`.

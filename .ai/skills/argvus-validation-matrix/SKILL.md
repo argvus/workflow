@@ -13,7 +13,7 @@ Validate what the change touches and its direct consumers. Do not run expensive 
 |---|---|
 | Rust code (`.rs`, `Cargo.toml`) | `cargo fmt --all -- --check`, `cargo check --workspace`, `cargo clippy`, `cargo test` in the affected repository |
 | Rust under `de/argvus/crates` | `make validate` in `de/argvus` (fmt, clippy `-D warnings`, workspace tests), or `cargo test -p <crate>` for a narrow change; see `argvus-monorepo` |
-| Rust under `de/argvus/greeter` | the same checks run inside `de/argvus/greeter` (it is a separate Cargo workspace, excluded from the root) |
+| Rust under `de/argvus/crates/argvus-greeter*` | `make validate` in `de/argvus`, plus `cargo build --profile greeter -p argvus-greeter` for the release-size build |
 | Rust with `cargo build` or packaging impact | add `cargo build --release` and the `make` target the project defines |
 | Lua (`hyprland.lua`, theme Lua, generated `hypr/*.lua`) | `luac -p` on each file, `stylua --check` |
 | Shell still in use (packaging, hooks, install) | `sh -n`, `shellcheck` |

@@ -9,5 +9,5 @@ Use this skill to finish:
 
 - DO NOT commit.
 - DO NOT push.
-- DO NOT build. Use the project's `make check`.
+- DO NOT build. Use the project's `make validate`.
 - DO NOT use `git reset`.

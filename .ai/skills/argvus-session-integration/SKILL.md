@@ -12,7 +12,7 @@ Use this skill when changes involve startup/session lifecycle or system services
 Commonly involved:
 
 - argvus-session
-- argvus (greeter in `greeter/`, package `argvus-greeter`; loading overlay in `crates/argvus-loading-theme`; see `argvus-monorepo`)
+- argvus (greeter in `crates/argvus-greeter`, shipped in the `argvus` package; loading overlay in `crates/argvus-loading-theme`; see `argvus-monorepo`)
 - argvus-boot-splash
 - argvus-lock
 - argvus-control-panel
@@ -76,7 +76,7 @@ Keep UI calls asynchronous where appropriate.
 
 ## Reload
 
-Use `argvus-sessionctl` or the established central mechanism when appropriate.
+Use `argvus sessionctl` or the established central mechanism when appropriate.
 
 Avoid restarting all desktop components for a small setting if targeted reload exists.
 

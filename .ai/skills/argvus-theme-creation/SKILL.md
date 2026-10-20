@@ -14,11 +14,11 @@ Use this skill whenever creating or adding a new official ARGVUS theme.
 
 Examples:
 
-- `argvus-dark-monokai`
-- `argvus-light-gruvbox`
-- `argvus-dark-hackerman`
-- `argvus-solitude`
-- `argvus-onelight`
+- `monokai-dark`
+- `gruvbox-light`
+- `sunset`
+- `solitude`
+- `one-light`
 - any future official ARGVUS theme
 
 This skill is specifically for **theme creation / introduction**.
@@ -282,7 +282,7 @@ Common consumers include:
 - `argvus-launcher`;
 - `argvus-notifications`;
 - `argvus-lock`;
-- `de/argvus/greeter` (greeter binary, third split package of `argvus`);
+- `de/argvus/crates/argvus-greeter` (greeter binary, shipped inside the `argvus` package);
 - `argvus-session`;
 - `argvus-hyprland`;
 - `argvus-boot-splash` and the loading overlay (`crates/argvus-loading-theme`);
@@ -452,7 +452,7 @@ Validate the website using the commands defined by its current package/project
 configuration.
 
 Validate the documentation changed in each project's `docs/` folder using the
-checks that project defines (for example `make check`).
+checks that project defines (for example `make validate`).
 
 Do not guess commands. Inspect the current project first.
 
@@ -555,7 +555,7 @@ update is needed, and explain that decision in the final report.
 
 ## Master package and component packages
 
-- `argvus` is the master package (pkgbase `argvus`, split packages `argvus`, `argvus-gtk`, `argvus-greeter`). Every component package depends on `argvus`, so no install order is required.
+- `argvus` is the master package (pkgbase and package `argvus`: CLI, GTK helpers, login greeter and loading overlay). Every component package depends on `argvus`, so no install order is required.
 - Desktop tools are in-process subcommands of `argvus` (`argvus config`, `argvus i18n`, `argvus terminal`, `argvus system-monitor`, and so on). Do not add a separate executable for a function the `argvus` CLI already provides, and do not call the retired binaries (`argvus-config`, `argvus-i18n`, `argvus-terminal`).
 - `argvus-pwvucontrol` and `argvus-snappy-switcher` were removed. Do not reintroduce them or ship their configuration.
 - Theme packages are generated from `misc/argvus-skeleton-theme`; the shared-file drift check is `tools/sh/sync-skeleton.sh --check`.

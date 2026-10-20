@@ -171,7 +171,7 @@ After edits:
 - search documentation for stale project names;
 - search for obsolete commands and paths discovered during audit;
 - check internal links;
-- run the project's validation (`make check`) and any documentation checks it defines.
+- run the project's validation (`make validate`) and any documentation checks it defines.
 
 Fix errors caused by the documentation changes.
 

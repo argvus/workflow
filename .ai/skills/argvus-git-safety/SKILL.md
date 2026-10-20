@@ -26,6 +26,8 @@ Never run these unless the user explicitly asks for that exact operation:
 - `git rebase`, `git commit --amend`;
 - `git push --force` or any force push.
 
+The only exception is the `make push:<BRANCH>` target (`--force-with-lease`), which only the human operator runs; see AGENTS.md.
+
 Before touching a repository, check `git status`. Preserve uncommitted work, including changes that were not made in this session.
 
 ## Commits

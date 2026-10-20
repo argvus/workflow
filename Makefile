@@ -4,7 +4,7 @@ TOOLS_MAIN := .tools/main.sh
 
 .PHONY: help clone build \
 	collect install zip zip-all status \
-	clean\:dist clean\:all claude requirements
+	clean\:dist clean\:all claude codex opencode requirements
 
 help:
 	@sh "$(TOOLS_MAIN)" help
