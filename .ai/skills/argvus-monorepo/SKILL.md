@@ -86,7 +86,7 @@ Repositories that keep their own executables and are not part of the workspace:
 - Workspace: `make validate` in `de/argvus` (fmt, clippy with `-D warnings`, tests). For
   a narrow change, `cargo test -p <crate>` plus `cargo clippy -p <crate>`.
 - Greeter: covered by `make validate` in `de/argvus` like every other crate.
-- Packaging: `makepkg --printsrcinfo` in `de/argvus/packaging/arch/{ci,local}/PKGBUILD`. See
+- Packaging: `makepkg --printsrcinfo` in `de/argvus/packaging/archlinux/pkgbuilds/{remote,local}/PKGBUILD`. The package payload is `de/argvus/packaging/archlinux/src/`. See
   `argvus-rust-packaging`.
 - Build disk pressure: `/tmp` can have a small quota; use
   `CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=0` when a build fails with `EDQUOT`.
