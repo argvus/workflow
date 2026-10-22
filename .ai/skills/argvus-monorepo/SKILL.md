@@ -65,7 +65,7 @@ modified. Their `de/retiree/<name>` copies are read-only history.
 | `argvus-themes` | `crates/argvus-theme` (shared theme logic); each official theme is its own `de/argvus-theme-*` repository |
 
 Repositories that keep their own executables and are not part of the workspace:
-`argvus-accounts` (runs as root through `pkexec`), `argvus-firewall`, `argvus-game-snake`
+`argvus-firewall`, `argvus-game-snake`
 (independent and optional, depends on `../argvus/crates/...` by path).
 
 ## Rules

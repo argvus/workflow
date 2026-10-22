@@ -545,7 +545,6 @@ Never assume a feature exists solely because it appears in documentation or READ
 Repositories under `de/` include:
 
 - `argvus`
-- `argvus-accounts`
 - `argvus-app-profiles`
 - `argvus-appearance`
 - `argvus-boot-splash`
@@ -876,8 +875,7 @@ The Rust commands of the desktop live in one Cargo workspace at `de/argvus`
 - `argvus-greeter` is a member of the root workspace (`crates/argvus-greeter`, built with
   `cargo build --profile greeter`, installed as `commands/greeter`). It runs before login.
   Its DRM handoff helper `argvus-greeter-handoff` is installed at `greeter/handoff`.
-- Repositories that keep their own executables: `argvus-accounts` (runs as root through
-  `pkexec`), `argvus-firewall`.
+- Repositories that keep their own executables: `argvus-firewall`.
 - Do not add a new `/usr/lib/argvus/commands/argvus-*` path in callers; use
   `argvus <command>`. Keep callers that must start before PATH is set (systemd
   units) on `/usr/bin/argvus <command>`.
